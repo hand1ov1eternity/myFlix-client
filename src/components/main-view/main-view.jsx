@@ -30,16 +30,28 @@ export const MainView = () => {
       }
   ]);
 
+  const [selectedMovie, setSelectedMovie] = useState(null);
+
+  if (selectedMovie) {
+    return <MovieView movie={selectedMovie} />;
+  }
+
   if (movies.length === 0) {
     return <div>The list is empty!</div>;
   }
 
   return (
     <div>
-      {movies.map((movie) => {
-       <MovieCard movie={movie} />,
-       <MovieView movie={movie} />
-      })}
+      <button
+        onClick={() => {
+          alert("Nice!");
+        }}
+      >
+        Click me!
+      </button>
+      {movies.map((movie) => (
+        <MovieCard key={movie.id} movie={movie} />
+      ))}
     </div>
   );
-};
+}
