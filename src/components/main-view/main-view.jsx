@@ -50,7 +50,12 @@ export const MainView = () => {
         Click me!
       </button>
       {movies.map((movie) => (
-        <MovieCard key={movie.id} movie={movie} />
+        <MovieCard 
+        key={movie.id}
+        movie={movie}
+        onMovieClick={(newSelectedMovie) => {
+            setSelectedMovie(newSelectedMovie);
+          }} />
       ))}
     </div>
   );
