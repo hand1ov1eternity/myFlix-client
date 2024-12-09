@@ -6,7 +6,7 @@ export const MainView = ({movies, onBackCLick}) => {
   const [movies, setMovies] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:3000/movies")
+    fetch("mongodb://localhost:3000/movies")
       .then((response) => response.json())
       .then((data) => {
         const moviesFromApi = data.docs.map((doc) => {
