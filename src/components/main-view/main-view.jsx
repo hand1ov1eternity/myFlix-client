@@ -2,8 +2,8 @@ import { useState } from "react";
 import { MovieCard } from "../movie-card/movie-card";
 import { MovieView } from "../movie-view/movie-view";
 
-export const MainView = ({movies, onBackCLick}) => {
-  const [movies, setMovies] = useState([]);
+export const MainView = ({movies, onBackClick}) => {
+  const [movie, setMovies] = (0,_react.useState)([]);
 
   useEffect(() => {
     fetch("mongodb+srv://revolutionarygr:Tax1diaaxNAI@myflixdb.piv4e.mongodb.net/")
