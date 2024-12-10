@@ -6,7 +6,7 @@ export const MainView = ({movies, onBackCLick}) => {
   const [movies, setMovies] = useState([]);
 
   useEffect(() => {
-    fetch("mongodb://localhost:3000/movies")
+    fetch("mongodb+srv://revolutionarygr:Tax1diaaxNAI@myflixdb.piv4e.mongodb.net/")
       .then((response) => response.json())
       .then((data) => {
         const moviesFromApi = data.docs.map((doc) => {

@@ -18590,7 +18590,7 @@ const MainView = ({ movies, onBackCLick })=>{
     _s();
     const [movies, setMovies] = (0, _react.useState)([]);
     useEffect(()=>{
-        fetch("mongodb://localhost:3000/movies").then((response)=>response.json()).then((data)=>{
+        fetch("mongodb+srv://revolutionarygr:Tax1diaaxNAI@myflixdb.piv4e.mongodb.net/").then((response)=>response.json()).then((data)=>{
             const moviesFromApi = data.docs.map((doc)=>{
                 return {
                     id: doc.key,
