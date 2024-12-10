@@ -18586,9 +18586,9 @@ var _react1 = require("react");
 var _movieCard = require("../movie-card/movie-card");
 var _movieView = require("../movie-view/movie-view");
 var _s = $RefreshSig$();
-const MainView = ({ movies, onBackCLick })=>{
+const MainView = ({ movies, onBackClick })=>{
     _s();
-    const [movies, setMovies] = (0, _react.useState)([]);
+    const [movie, setMovies] = (0, _react.useState)([]);
     useEffect(()=>{
         fetch("mongodb+srv://revolutionarygr:Tax1diaaxNAI@myflixdb.piv4e.mongodb.net/").then((response)=>response.json()).then((data)=>{
             const moviesFromApi = data.docs.map((doc)=>{
