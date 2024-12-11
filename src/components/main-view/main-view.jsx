@@ -2,14 +2,14 @@ import { useState } from "react";
 import { MovieCard } from "../movie-card/movie-card";
 import { MovieView } from "../movie-view/movie-view";
 
-export const MainView = ({movies, onBackClick}) => {
-  const [movie, setMovies] = (0,_react.useState)([]);
+export const MainView = ({onBackClick}) => {
+  const [movies, setMovies] = useState([]);
 
   useEffect(() => {
     fetch("mongodb+srv://revolutionarygr:Tax1diaaxNAI@myflixdb.piv4e.mongodb.net/")
       .then((response) => response.json())
       .then((data) => {
-        const moviesFromApi = data.docs.map((doc) => {
+        const movies = data.docs.map((doc) => {
           return {
             id: doc.key,
             title: doc.title,
@@ -19,7 +19,7 @@ export const MainView = ({movies, onBackClick}) => {
           };
         });
 
-        setMovies(moviesFromApi);
+        setMovies(movies);
       });
   }, []);
 
