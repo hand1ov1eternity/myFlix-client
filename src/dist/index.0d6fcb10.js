@@ -18589,7 +18589,7 @@ var _s = $RefreshSig$();
 const MainView = ({ onBackClick })=>{
     _s();
     const [movies, setMovies] = (0, _react.useState)([]);
-    useEffect(()=>{
+    (0, _react.useEffect)(()=>{
         fetch("mongodb+srv://revolutionarygr:Tax1diaaxNAI@myflixdb.piv4e.mongodb.net/").then((response)=>response.json()).then((data)=>{
             const movies = data.docs.map((doc)=>{
                 return {
