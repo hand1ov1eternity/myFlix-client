@@ -7,19 +7,24 @@ export const MainView = ({onBackClick}) => {
 
   useEffect(() => {
     fetch("http://localhost:3000/movies")
-      .then((response) => response.json())
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
       .then((data) => {
-        const movies = data.docs.map((doc) => {
-          return {
-            id: doc.key,
-            title: doc.title,
-            description: doc.description,
-            genre: doc.genre,
-            director: doc.director_name?.[0]
-          };
-        });
-
+        const movies = data.map((doc) => ({
+          id: doc._id, 
+          title: doc.title,
+          description: doc.description,
+          genre: doc.genre,
+          director: doc.director_name
+        }));
         setMovies(movies);
+      })
+      .catch((error) => {
+        console.error('Fetch error:', error);
       });
   }, []);
 
