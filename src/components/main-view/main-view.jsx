@@ -2,8 +2,9 @@ import { useState, useEffect } from "react";
 import { MovieCard } from "../movie-card/movie-card";
 import { MovieView } from "../movie-view/movie-view";
 
-export const MainView = ({onBackClick}) => {
+export const MainView = () => {
   const [movies, setMovies] = useState([]);
+  const [selectedMovie, setSelectedMovie] = useState(null);
 
   useEffect(() => {
     fetch("http://localhost:3000/movies")
@@ -28,8 +29,6 @@ export const MainView = ({onBackClick}) => {
       });
   }, []);
 
-  const [selectedMovie, setSelectedMovie] = useState(null);
-
   if (selectedMovie) {
     return (
     <MovieView movie={selectedMovie} onBackClick={() => setSelectedMovie(null)} />
@@ -42,13 +41,6 @@ export const MainView = ({onBackClick}) => {
 
   return (
     <div>
-      <button
-        onClick={() => {
-          alert("Nice!");
-        }}
-      >
-        Click me!
-      </button>
       {movies.map((movie) => (
         <MovieCard 
         key={movie.id}
@@ -59,6 +51,4 @@ export const MainView = ({onBackClick}) => {
       ))}
     </div>
   );
-
-  <button onClick={onBackClick}>Back</button>
 }
