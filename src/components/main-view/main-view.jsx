@@ -20,7 +20,7 @@ export const MainView = () => {
           title: doc.title,
           description: doc.description,
           genre: doc.genre,
-          director: doc.director_name
+          director: doc.director
         }));
         setMovies(movies);
       })
