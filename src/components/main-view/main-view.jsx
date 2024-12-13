@@ -1,66 +1,93 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { MovieCard } from "../movie-card/movie-card";
 import { MovieView } from "../movie-view/movie-view";
+import { LoginView } from "../login-view/login-view";
+import { SignupView } from "../signup-view/signup-view";
 
-export const MainView = ({movie, onBackCLick}) => {
-  const [movies, setMovies] = useState([
-    { id: 1, 
-      title: "Inception",
-      description: "A thrilling adventure through the mind, exploring the boundaries of dreams and reality.",
-      genre: "Sci-Fi",
-      director: "Christopher Nolan",
-      imageURL: "https://m.media-amazon.com/images/M/MV5BMjAxMzY3NjcxNF5BMl5BanBnXkFtZTcwNTI5OTM0Mw@@._V1_.jpg"
-    },
-   
-      { id: 2, 
-        title: "The Dark Knight",
-        description: "A gritty portrayal of Batman facing the Joker in Gotham.",
-        genre: "Action",
-        director: "Christopher Nolan",
-        imageURL: "https://m.media-amazon.com/images/M/MV5BMTMxNTMwODM0NF5BMl5BanBnXkFtZTcwODAyMTk2Mw@@._V1_FMjpg_UX1000_.jpg"
-    },
-    
-      { id: 3, 
-        title: "The Shining",
-        description: "A writer descends into madness while isolated in a haunted hotel.",
-        genre: "Horror",
-        director: "Stanley Kubrick",
-        imageURL: "https://m.media-amazon.com/images/M/MV5BMTg0MzkzODUwNV5BMl5BanBnXkFtZTgwODM1MjEwNDI@._V1_.jpg"
-
-      }
-  ]);
-
+export const MainView = () => {
+  const storedUser = JSON.parse(localStorage.getItem("user"));
+  const storedToken = localStorage.getItem("token");
+  const [movies, setMovies] = useState([]);
   const [selectedMovie, setSelectedMovie] = useState(null);
+  const [user, setUser] = useState(null);
+  const [token, setToken] = useState(null);
 
-  if (selectedMovie) {
+  useEffect(() => {
+    if (!token) return;
+  
+    fetch("http://localhost:3000/movies", {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        const movies = data.map((doc) => ({
+          id: doc._id,
+          title: doc.title,
+          description: doc.description,
+          genre: doc.genre,
+          director: doc.director_name,
+        }));
+        setMovies(movies);
+      })
+      .catch((error) => {
+        console.error("Fetch error:", error);
+      });
+  }, [token]); // Close the useEffect dependencies here.
+  
+  if (!user) {
     return (
-    <MovieView movie={selectedMovie} onBackClick={() => setSelectedMovie(null)} />
+      <>
+        <LoginView
+          onLoggedIn={(user, token) => {
+            setUser(user);
+            setToken(token);
+          }}
+        />
+        or
+        <SignupView />
+      </>
     );
   }
-
+  
+  // Correct JSX for MovieCard rendering
+  if (selectedMovie) {
+    return (
+      <MovieView
+        movie={selectedMovie}
+        onBackClick={() => setSelectedMovie(null)}
+      />
+    );
+  }
+  
   if (movies.length === 0) {
     return <div>The list is empty!</div>;
   }
-
+  
   return (
     <div>
       <button
         onClick={() => {
-          alert("Nice!");
+          setUser(null);
+          setToken(null);
+          localStorage.clear();
         }}
       >
-        Click me!
+        Logout
       </button>
       {movies.map((movie) => (
-        <MovieCard 
-        key={movie.id}
-        movie={movie}
-        onMovieClick={(newSelectedMovie) => {
+        <MovieCard
+          key={movie.id}
+          movie={movie}
+          onMovieClick={(newSelectedMovie) => {
             setSelectedMovie(newSelectedMovie);
-          }} />
+          }}
+        />
       ))}
     </div>
   );
-
-  <button onClick={onBackClick}>Back</button>
-}
+};
