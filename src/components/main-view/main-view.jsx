@@ -15,7 +15,7 @@ export const MainView = () => {
   useEffect(() => {
     if (!token) return;
   
-    fetch("http://localhost:3000/movies", {
+    fetch("process.env.CONNECTION_URI", {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then((response) => {
