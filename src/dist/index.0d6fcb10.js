@@ -18598,7 +18598,7 @@ const MainView = ()=>{
     const [token, setToken] = (0, _react.useState)(null);
     (0, _react.useEffect)(()=>{
         if (!token) return;
-        fetch("process.env.CONNECTION_URI", {
+        fetch("https://movie-api-bqfe.onrender.com/movies", {
             headers: {
                 Authorization: `Bearer ${token}`
             }
@@ -19829,7 +19829,7 @@ const LoginView = ({ onLoggedIn })=>{
             password: password
         };
         // Step 4: Send the data to the server
-        fetch("http://localhost:3000/users", {
+        fetch("https://movie-api-bqfe.onrender.com/users", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -19951,17 +19951,15 @@ const SignupView = ()=>{
             email: email,
             birthday: birthday
         };
-        fetch("http://localhost:3000/users", {
+        fetch("https://movie-api-bqfe.onrender.com/users", {
             method: "POST",
             body: JSON.stringify(data),
             headers: {
                 "Content-Type": "application/json"
             }
         }).then((response)=>{
-            if (response.ok) {
-                alert("Signup successful");
-                window.location.reload();
-            } else alert("Signup failed");
+            if (response.ok) alert("Signup successful");
+            else alert("Signup failed");
         });
     };
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("form", {

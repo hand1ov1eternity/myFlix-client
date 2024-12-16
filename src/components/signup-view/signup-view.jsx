@@ -16,7 +16,7 @@ export const SignupView = () => {
       birthday: birthday,
     };
 
-    fetch("http://localhost:3000/users", {
+    fetch("https://movie-api-bqfe.onrender.com/users", {
       method: "POST",
       body: JSON.stringify(data),
       headers: {
@@ -25,7 +25,7 @@ export const SignupView = () => {
     }).then((response) => {
       if (response.ok) {
         alert("Signup successful");
-        window.location.reload();
+        //window.location.reload();//
       } else {
         alert("Signup failed");
       }

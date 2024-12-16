@@ -15,7 +15,7 @@ export const MainView = () => {
   useEffect(() => {
     if (!token) return;
   
-    fetch("process.env.CONNECTION_URI", {
+    fetch("https://movie-api-bqfe.onrender.com/movies", {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then((response) => {
