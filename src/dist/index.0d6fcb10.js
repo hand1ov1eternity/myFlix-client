@@ -19829,7 +19829,7 @@ const LoginView = ({ onLoggedIn })=>{
             password: password
         };
         // Step 4: Send the data to the server
-        fetch("https://movie-api-bqfe.onrender.com/users", {
+        fetch("https://movie-api-bqfe.onrender.com/login", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
