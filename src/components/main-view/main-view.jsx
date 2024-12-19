@@ -62,6 +62,7 @@ export const MainView = () => {
         <div>The list is empty!</div>
       ) : (
         <>
+        {console.log("Rendering movie list:", movies)} {/* Add here */}
           {movies.map((movie) => (
             <Col className="mb-5" key={movie.id} md={3}>
               <MovieCard

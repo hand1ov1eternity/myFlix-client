@@ -1,6 +1,7 @@
 import { Button, Card } from "react-bootstrap";
 
 export const MovieCard = ({ movie, onMovieClick }) => {
+  console.log("Movie data in MovieCard:", movie);
   return (
     <Card className="h-100" onClick={() => onMovieClick(movie)}>
       <Card.Img variant="top" src={movie.imageURL} />
@@ -9,7 +10,7 @@ export const MovieCard = ({ movie, onMovieClick }) => {
         <Card.Subtitle className="mb-2 text-muted">{movie.genre.name}</Card.Subtitle>
         <Card.Text>{movie.description}</Card.Text>
         <Card.Footer>
-          <small className="text-muted">{movie.director.name}</small>
+          <small className="text-muted">{movie.director}</small>
         </Card.Footer>
         <Button onClick={() => onMovieClick(movie)} variant="link">
           Open
