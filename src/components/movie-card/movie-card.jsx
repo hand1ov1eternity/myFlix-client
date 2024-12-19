@@ -1,7 +1,6 @@
 import { Button, Card } from "react-bootstrap";
 
 export const MovieCard = ({ movie, onMovieClick }) => {
-  console.log("Movie data in MovieCard:", movie);
   return (
     <Card className="h-100" onClick={() => onMovieClick(movie)}>
       <Card.Img variant="top" src={movie.imageURL} />
