@@ -34,7 +34,7 @@ export const SignupView = () => {
   };
 
   return (
-    <Container className="mt-5">
+    <div className="form-container">
       <h2 className="mb-4">Signup</h2>
       <Form onSubmit={handleSubmit}>
         <Form.Group controlId="formUsername" className="mb-3">
@@ -82,6 +82,6 @@ export const SignupView = () => {
           Submit
         </Button>
       </Form>
-    </Container>
+    </div>
   );
 };

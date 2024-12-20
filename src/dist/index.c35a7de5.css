@@ -13195,4 +13195,13 @@ textarea.form-control-lg {
     display: none !important;
   }
 }
+
+.form-container {
+  background-color: #f0fff0;
+  border-radius: 8px;
+  max-width: 400px;
+  margin: 2rem auto;
+  padding: 2rem;
+  box-shadow: 0 4px 8px #0000001a;
+}
 /*# sourceMappingURL=index.c35a7de5.css.map */
