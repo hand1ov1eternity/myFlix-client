@@ -1,13 +1,14 @@
 import { useState, useEffect } from "react";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import { MovieCard } from "../movie-card/movie-card";
 import { MovieView } from "../movie-view/movie-view";
 import { LoginView } from "../login-view/login-view";
 import { SignupView } from "../signup-view/signup-view";
 import { Row, Col } from "react-bootstrap";
+import { NavigationBar } from "../navigation-bar/navigation-bar";
 
 export const MainView = () => {
   const [movies, setMovies] = useState([]);
-  const [selectedMovie, setSelectedMovie] = useState(null);
   const [user, setUser] = useState(null);
   const [token, setToken] = useState(null);
 
@@ -29,7 +30,7 @@ export const MainView = () => {
           title: doc.title,
           description: doc.description,
           genre: doc.genre,
-          director: doc.director_name,
+          director: doc.director.name,
         }));
         setMovies(movies);
       })
@@ -39,41 +40,66 @@ export const MainView = () => {
   }, [token]);
 
   return (
-    <Row>
-      {!user ? (
-        <Col md={5}>
-          <LoginView
-            onLoggedIn={(user, token) => {
-              setUser(user);
-              setToken(token);
-            }}
-          />
-          <div>or</div>
-          <SignupView />
-        </Col>
-      ) : selectedMovie ? (
-        <Col md={8}>
-          <MovieView
-            movie={selectedMovie}
-            onBackClick={() => setSelectedMovie(null)}
-          />
-        </Col>
-      ) : movies.length === 0 ? (
-        <div>The list is empty!</div>
-      ) : (
-        <>
-          {movies.map((movie) => (
-            <Col className="mb-5" key={movie.id} md={3}>
-              <MovieCard
-                movie={movie}
-                onMovieClick={(newSelectedMovie) => {
-                  setSelectedMovie(newSelectedMovie);
-                }}
+    <Router>
+       <NavigationBar
+        user={user}
+        onLoggedOut={() => {
+          setUser(null);
+          setToken(null); // Clear the user and token on logout
+        }}
+      />
+      <Row>
+        <Routes>
+          {/* Redirect to login if user is not logged in */}
+          {!user ? (
+            <>
+              <Route
+                path="/"
+                element={
+                  <Col md={5}>
+                    <LoginView
+                      onLoggedIn={(user, token) => {
+                        setUser(user);
+                        setToken(token);
+                      }}
+                    />
+                   
+                    <SignupView />
+                  </Col>
+                }
               />
-            </Col>
-          ))}
-        </>
-      )}
-    </Row>
+              <Route path="*" element={<Navigate to="/" />} />
+            </>
+          ) : (
+            <>
+              {/* Route for the main movie list */}
+              <Route
+                path="/movies"
+                element={
+                  movies.length === 0 ? (
+                    <div>The list is empty!</div>
+                  ) : (
+                    movies.map((movie) => (
+                      <Col className="mb-5" key={movie.id} md={3}>
+                        <MovieCard movie={movie} />
+                      </Col>
+                    ))
+                  )
+                }
+              />
+
+              {/* Route for the selected movie view */}
+              <Route
+                path="/movies/movieId"
+                element={<MovieView movies={movies} />}
+              />
+
+              {/* Default route */}
+              <Route path="*" element={<Navigate to="/movies" />} />
+            </>
+          )}
+        </Routes>
+      </Row>
+    </Router>
   );
 };
