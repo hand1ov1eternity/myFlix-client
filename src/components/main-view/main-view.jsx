@@ -54,21 +54,34 @@ export const MainView = () => {
           {!user ? (
             <>
               <Route
-                path="/"
+                path="/Login"
                 element={
                   <Col md={5}>
+                    <div className="form-container">
                     <LoginView
                       onLoggedIn={(user, token) => {
                         setUser(user);
                         setToken(token);
                       }}
-                    />
-                   
-                    <SignupView />
+                    />  
+                    </div>               
                   </Col>
                 }
               />
-              <Route path="*" element={<Navigate to="/" />} />
+              <Route path="*" element={<Navigate to="/Login" />} />
+
+              <Route
+                path="/Signup"
+                element={
+                  <Col md={5}>
+                    <div className="form-container">
+                     <SignupView />
+                    </div>
+                  </Col>
+                }
+              />
+              <Route path="*" element={<Navigate to="/Signup" />} />
+
             </>
           ) : (
             <>
