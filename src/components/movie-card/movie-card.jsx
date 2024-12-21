@@ -15,10 +15,12 @@ export const MovieCard = ({ movie }) => {
         <Card.Footer>
           <small className="text-muted">{movie.director.name}</small>
         </Card.Footer>
-        {/* Link replaces the button */}
-        <Link to={`/movies/${movie.id}`} className="btn btn-link">
+        {/* Link replaces the button*/ }
+        <Link to={`/movies/${encodeURIComponent(movie.id)}`} className="btn btn-link">
           Open
         </Link>
+        
+        
       </Card.Body>
     </Card>
   );

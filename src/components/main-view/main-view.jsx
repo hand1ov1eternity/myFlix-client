@@ -4,6 +4,7 @@ import { MovieCard } from "../movie-card/movie-card";
 import { MovieView } from "../movie-view/movie-view";
 import { LoginView } from "../login-view/login-view";
 import { SignupView } from "../signup-view/signup-view";
+import { ProfileView } from "../profile-view/profile-view";
 import { Row, Col } from "react-bootstrap";
 import { NavigationBar } from "../navigation-bar/navigation-bar";
 
@@ -30,7 +31,7 @@ export const MainView = () => {
           title: doc.title,
           description: doc.description,
           genre: doc.genre,
-          director: doc.director.name,
+          director: doc.director,
         }));
         setMovies(movies);
       })
@@ -105,6 +106,23 @@ export const MainView = () => {
               <Route
                 path="/movies/movieId"
                 element={<MovieView movies={movies} />}
+              />
+
+              {/* Route for the profile view */}
+              <Route
+                path="/profile"
+                element={
+                  <ProfileView
+                    user={user}
+                    token={token}
+                    movies={movies}
+                    onUserUpdated={(updatedUser) => setUser(updatedUser)}
+                    onUserDeleted={() => {
+                      setUser(null);
+                      setToken(null);
+                    }}
+                  />
+                }
               />
 
               {/* Default route */}

@@ -3,7 +3,7 @@ import "./movie-view.scss";
 
 export const MovieView = ({ movies }) => {
   const { movieId } = useParams();
-
+console.log(movieId)
   const movie = movies.find((m) => m.id === movieId);
   if (!movie) {
     return <div>Movie not found!</div>;
