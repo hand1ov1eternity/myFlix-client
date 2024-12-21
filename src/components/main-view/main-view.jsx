@@ -12,107 +12,99 @@ export const MainView = () => {
   const [user, setUser] = useState(null);
   const [token, setToken] = useState(null);
 
+  const handleFavoriteToggle = (movieId) => {
+    if (!user) return;
+
+    const updatedFavorites = user.FavoriteMovies.includes(movieId)
+      ? user.FavoriteMovies.filter((id) => id !== movieId)
+      : [...user.FavoriteMovies, movieId];
+
+    const updatedUser = { ...user, FavoriteMovies: updatedFavorites };
+
+    // Update user on the backend
+    fetch(`https://movie-api-bqfe.onrender.com/users/${user.Username}`, {
+      method: "PUT",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(updatedUser),
+    })
+      .then((response) => response.json())
+      .then((updatedUser) => {
+        setUser(updatedUser); // Update the user in state
+      })
+      .catch((error) => alert("Failed to update favorites"));
+  };
+
   useEffect(() => {
     if (!token) return;
 
     fetch("https://movie-api-bqfe.onrender.com/movies", {
       headers: { Authorization: `Bearer ${token}` },
     })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        return response.json();
-      })
+      .then((response) => response.json())
       .then((data) => {
-        const movies = data.map((doc) => ({
-          id: doc._id,
-          title: doc.title,
-          description: doc.description,
-          genre: doc.genre,
-          director: doc.director.name,
-        }));
-        setMovies(movies);
+        setMovies(data);
       })
-      .catch((error) => {
-        console.error("Fetch error:", error);
-      });
+      .catch((error) => alert("Failed to fetch movies"));
   }, [token]);
 
   return (
     <Router>
-       <NavigationBar
+      <NavigationBar
         user={user}
         onLoggedOut={() => {
           setUser(null);
-          setToken(null); // Clear the user and token on logout
+          setToken(null);
         }}
       />
       <Row>
         <Routes>
-          {/* Redirect to login if user is not logged in */}
-          {!user ? (
-            <>
-              <Route
-                path="/Login"
-                element={
-                  <Col md={5}>
-                    <div className="form-container">
-                    <LoginView
-                      onLoggedIn={(user, token) => {
-                        setUser(user);
-                        setToken(token);
-                      }}
-                    />  
-                    </div>               
-                  </Col>
-                }
-              />
-              <Route path="*" element={<Navigate to="/Login" />} />
+          {/* Login and Signup routes */}
+          <Route
+            path="/login"
+            element={<LoginView onLoggedIn={(user, token) => { setUser(user); setToken(token); }} />}
+          />
+          <Route
+            path="/signup"
+            element={<SignupView />}
+          />
 
-              <Route
-                path="/Signup"
-                element={
-                  <Col md={5}>
-                    <div className="form-container">
-                     <SignupView />
-                    </div>
-                  </Col>
-                }
-              />
-              <Route path="*" element={<Navigate to="/Signup" />} />
+          {/* Movie list route */}
+          <Route
+            path="/movies"
+            element={
+              <div>
+                {movies.map((movie) => (
+                  <MovieCard
+                    key={movie.id}
+                    movie={movie}
+                    user={user}
+                    onFavoriteToggle={handleFavoriteToggle}
+                  />
+                ))}
+              </div>
+            }
+          />
 
-            </>
-          ) : (
-            <>
-              {/* Route for the main movie list */}
-              <Route
-                path="/movies"
-                element={
-                  movies.length === 0 ? (
-                    <div>The list is empty!</div>
-                  ) : (
-                    movies.map((movie) => (
-                      <Col className="mb-5" key={movie.id} md={3}>
-                        <MovieCard movie={movie} />
-                      </Col>
-                    ))
-                  )
-                }
+          {/* Movie details route */}
+          <Route
+            path="/movies/:movieId"
+            element={
+              <MovieView
+                movie={movies.find((movie) => movie.id === movieId)}
+                user={user}
+                onFavoriteToggle={handleFavoriteToggle}
               />
+            }
+          />
 
-              {/* Route for the selected movie view */}
-              <Route
-                path="/movies/movieId"
-                element={<MovieView movies={movies} />}
-              />
-
-              {/* Default route */}
-              <Route path="*" element={<Navigate to="/movies" />} />
-            </>
-          )}
+          {/* Default route */}
+          <Route path="*" element={<Navigate to="/login" />} />
         </Routes>
       </Row>
     </Router>
   );
 };
+

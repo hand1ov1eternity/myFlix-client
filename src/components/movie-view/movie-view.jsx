@@ -1,13 +1,18 @@
 import { useParams, Link } from "react-router-dom";
+import { Button } from "react-bootstrap";
 import "./movie-view.scss";
 
-export const MovieView = ({ movies }) => {
+export const MovieView = ({ movie, user, onFavoriteToggle }) => {
   const { movieId } = useParams();
 
   const movie = movies.find((m) => m.id === movieId);
+  
   if (!movie) {
     return <div>Movie not found!</div>;
   }
+
+  // Check if the movie is in the user's favorite list
+  const isFavorite = user && user.FavoriteMovies.includes(movie.id);
 
   return (
     <div>
@@ -31,7 +36,17 @@ export const MovieView = ({ movies }) => {
         <span>{movie.director}</span>
       </div>
 
-      {/* Replace onBackClick with Link */}
+      {/* Favorite button */}
+      {user && (
+        <Button
+          variant={isFavorite ? "danger" : "primary"} // Change button color based on favorite status
+          onClick={() => onFavoriteToggle(movie.id)}
+        >
+          {isFavorite ? "Remove from Favorites" : "Add to Favorites"}
+        </Button>
+      )}
+
+      {/* Link to go back*/}
       <Link to="/movies" className="back-button" style={{ cursor: "pointer" }}>
         Back
       </Link>

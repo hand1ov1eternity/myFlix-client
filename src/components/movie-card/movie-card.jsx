@@ -1,9 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Card } from "react-bootstrap";
+import { Card,Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 export const MovieCard = ({ movie }) => {
+  // Check if the movie is already in the user's favorite list
+  const isFavorite = user && user.FavoriteMovies.includes(movie.id);
+  
   return (
     <Card className="h-100">
       <Card.Img variant="top" src={movie.imageURL} />
@@ -14,10 +17,24 @@ export const MovieCard = ({ movie }) => {
         <Card.Footer>
           <small className="text-muted">{movie.director}</small>
         </Card.Footer>
-        {/* Link replaces the button */}
+        
+        {/* Link to the movie details */}
         <Link to={`/movies/${movie.id}`} className="btn btn-link">
           Open
+        
         </Link>
+        
+{/* Favorite button */}
+{user && (
+          <Button
+            variant={isFavorite ? "danger" : "primary"} // Change button color based on favorite status
+            className="mt-2"
+            onClick={() => onFavoriteToggle(movie.id)}
+          >
+            {isFavorite ? "Remove from Favorites" : "Add to Favorites"}
+          </Button>
+        )}
+
       </Card.Body>
     </Card>
   );
