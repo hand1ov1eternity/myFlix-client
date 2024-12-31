@@ -10,6 +10,11 @@ export const ProfileView = ({ user, token, movies, onUserUpdated, onUserDeleted 
   const [favoriteMovies, setFavoriteMovies] = useState([]);
 
   useEffect(() => {
+
+       // Check if user.FavoriteMovies exists and is an array before filtering
+       if (!user.FavoriteMovies || !Array.isArray(user.FavoriteMovies)) {
+        return; // If FavoriteMovies is not defined or not an array, return early
+      }
     const filteredFavorites = movies.filter((m) => user.FavoriteMovies.includes(m.id));
     setFavoriteMovies(filteredFavorites);
   }, [movies, user.FavoriteMovies]);
