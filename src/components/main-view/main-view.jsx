@@ -104,7 +104,7 @@ export const MainView = () => {
 
               {/* Route for the selected movie view */}
               <Route
-                path="/movies/movieId"
+                path="/movies/:movieId"
                 element={<MovieView movies={movies} />}
               />
 

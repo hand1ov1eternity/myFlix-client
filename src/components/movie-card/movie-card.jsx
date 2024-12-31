@@ -7,6 +7,7 @@ export const MovieCard = ({ movie }) => {
   
   return (
     <Card className="h-100">
+      console.log(movie.imageURL);
       <Card.Img variant="top" src={movie.imageURL} />
       <Card.Body>
         <Card.Title>{movie.title}</Card.Title>
@@ -16,7 +17,7 @@ export const MovieCard = ({ movie }) => {
           <small className="text-muted">{movie.director.name}</small>
         </Card.Footer>
         {/* Link replaces the button*/ }
-        <Link to={`/movies/${encodeURIComponent(movie.id)}`} className="btn btn-link">
+        <Link to={`/movies/${movie.id}`} className="btn btn-link">
           Open
         </Link>
         
