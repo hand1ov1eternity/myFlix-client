@@ -12,6 +12,7 @@ export const MainView = () => {
   const [movies, setMovies] = useState([]);
   const [user, setUser] = useState(null);
   const [token, setToken] = useState(null);
+  const [filter, setFilter] = useState("");
 
   useEffect(() => {
     if (!token) return;
@@ -39,6 +40,12 @@ export const MainView = () => {
         console.error("Fetch error:", error);
       });
   }, [token]);
+
+  const filteredMovies = movies.filter(
+    (movie) =>
+      movie.title.toLowerCase().includes(filter.toLowerCase()) ||
+      movie.genre.name.toLowerCase().includes(filter.toLowerCase())
+  );
 
   return (
     <Router>
@@ -86,14 +93,25 @@ export const MainView = () => {
             </>
           ) : (
             <>
+
+              {/* Filter Input */}
+              <div className="filter-container">
+                <input
+                  type="text"
+                  placeholder="Filter by title or genre"
+                  value={filter}
+                  onChange={(e) => setFilter(e.target.value)}
+                />
+              </div>
+
               {/* Route for the main movie list */}
               <Route
                 path="/movies"
                 element={
-                  movies.length === 0 ? (
+                  filteredMovies.length === 0 ? (
                     <div>The list is empty!</div>
                   ) : (
-                    movies.map((movie) => (
+                    filderedMovies.map((movie) => (
                       <Col className="mb-5" key={movie.id} md={3}>
                         <MovieCard movie={movie} />
                       </Col>
