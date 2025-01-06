@@ -7,7 +7,6 @@ export const MovieCard = ({ movie }) => {
   
   return (
     <Card className="h-100">
-      console.log(movie.imageURL);
       <Card.Img variant="top" src={movie.imageURL} />
       <Card.Body>
         <Card.Title>{movie.title}</Card.Title>
