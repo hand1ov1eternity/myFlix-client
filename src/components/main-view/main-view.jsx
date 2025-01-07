@@ -26,12 +26,14 @@ export const MainView = () => {
         return response.json();
       })
       .then((data) => {
+       
         const movies = data.map((doc) => ({
           id: doc._id,
           title: doc.title,
           description: doc.description,
           genre: doc.genre,
           director: doc.director,
+          imageURL: doc.imageURL
         }));
         setMovies(movies);
       })
