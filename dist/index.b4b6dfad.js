@@ -18609,7 +18609,6 @@ const MainView = ()=>{
             if (!response.ok) throw new Error("Network response was not ok");
             return response.json();
         }).then((data)=>{
-            console.log(data);
             const movies = data.map((doc)=>({
                     id: doc._id,
                     title: doc.title,
@@ -26091,7 +26090,6 @@ var _propTypesDefault = parcelHelpers.interopDefault(_propTypes);
 var _reactBootstrap = require("react-bootstrap");
 var _reactRouterDom = require("react-router-dom");
 const MovieCard = ({ movie })=>{
-    console.log(movie);
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card), {
         className: "h-100",
         children: [
