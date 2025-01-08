@@ -1,3 +1,14 @@
+.movie-view {
+  margin-left: 20px;
+  padding: 20px;
+}
+
+.movie-image {
+  max-width: 30%;
+  height: auto;
+  display: block;
+}
+
 .back-button {
   color: #f5f5f5;
   background-color: #1e90ff;
@@ -27,6 +38,14 @@
 
 .heart-btn.favorite {
   color: red;
+}
+
+.form-group #formPassword {
+  margin-bottom: 20px;
+}
+
+button[type="submit"] {
+  margin-top: 10px;
 }
 
 .form-container {

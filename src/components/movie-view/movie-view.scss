@@ -1,3 +1,17 @@
+.movie-view {
+  padding: 20px; // Add padding around the container
+  margin-left: 20px;
+}
+
+
+.movie-image {
+  max-width: 30%; // You can change the percentage to whatever size you want
+  height: auto; // Ensures the aspect ratio is maintained
+  display: block; // Removes extra space below the image
+  
+}
+
+
 .back-button {
     padding: 4px 12px 4px 12px;
     color: whitesmoke;
