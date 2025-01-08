@@ -6,6 +6,29 @@
   padding: 4px 12px;
 }
 
+.heart-btn {
+  color: #ff4b5c;
+  cursor: pointer;
+  background-color: #0000;
+  border: none;
+  padding: .5rem;
+  font-size: 2rem;
+  transition: color .3s, transform .2s ease-in-out;
+}
+
+.heart-btn:hover {
+  color: #ff6f70;
+  transform: scale(1.2);
+}
+
+.heart-btn:focus {
+  outline: none;
+}
+
+.heart-btn.favorite {
+  color: red;
+}
+
 .form-container {
   border-radius: 8px;
   max-width: 400px;

@@ -7,31 +7,35 @@ export const LoginView = ({ onLoggedIn }) => {
   const [password, setPassword] = useState(""); 
 
   const handleSubmit = (event) => {
-    // Step 2: Prevent the default form submission behavior
     event.preventDefault();
-
-    // Step 3: Create a data object with the current username and password
+  
     const data = {
       username: username,
       password: password,
     };
-
-    // Step 4: Send the data to the server
+  
     fetch("https://movie-api-bqfe.onrender.com/login", {
       method: "POST",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify(data), // Convert the data object to JSON
+      body: JSON.stringify(data),
     })
       .then((response) => response.json())
       .then((data) => {
         console.log("Login response: ", data);
         if (data.user) {
-           // Save user and token in localStorage
+          // Ensure FavoriteMovies is always initialized as an array
+          const user = {
+            ...data.user,
+            FavoriteMovies: data.user.FavoriteMovies || [],
+          };
+  
+          // Save user and token in localStorage
           localStorage.setItem("user", JSON.stringify(data.user));
           localStorage.setItem("token", data.token);
-          // Call onLoggedIn with the user and token
+  
+          // Call onLoggedIn with the updated user and token
           onLoggedIn(data.user, data.token);
         } else {
           alert("No such user");
@@ -40,7 +44,7 @@ export const LoginView = ({ onLoggedIn }) => {
       .catch((e) => {
         alert("Something went wrong");
       });
-    };
+  };
 
     return (
       <Form onSubmit={handleSubmit}>

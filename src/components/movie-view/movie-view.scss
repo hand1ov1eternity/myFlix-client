@@ -5,3 +5,28 @@
     border: none;
     border-radius: 4px;
   }
+
+  .heart-btn {
+    background-color: transparent; // Make the background transparent
+    border: none; // Remove default button borders
+    color: #ff4b5c; // Heart color (red)
+    font-size: 2rem; // Adjust size of the heart
+    padding: 0.5rem;
+    cursor: pointer;
+    transition: color 0.3s, transform 0.2s ease-in-out;
+  
+    &:hover {
+      color: #ff6f70; // Lighten heart color on hover
+      transform: scale(1.2); // Slight scale effect when hovered
+    }
+  
+    &:focus {
+      outline: none; // Remove focus outline
+    }
+  
+    // When the movie is favorited, the heart turns red
+    &.favorite {
+      color: red; // Red color when favorited
+    }
+  }
+  

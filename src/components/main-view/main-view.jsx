@@ -63,6 +63,7 @@ export const MainView = () => {
                     <div className="form-container">
                     <LoginView
                       onLoggedIn={(user, token) => {
+                        console.log("Logged-in user:", user);
                         setUser(user);
                         setToken(token);
                       }}
@@ -105,7 +106,7 @@ export const MainView = () => {
               {/* Route for the selected movie view */}
               <Route
                 path="/movies/:movieId"
-                element={<MovieView movies={movies} />}
+                element={<MovieView movies={movies} user={user} token={token} onUserUpdated={setUser} />}
               />
 
               {/* Route for the profile view */}
