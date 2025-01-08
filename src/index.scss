@@ -1,12 +1,12 @@
 $primary: SeaGreen;
 $body-bg: Honeydew;
 
-@import 'bootstrap/scss/bootstrap.scss';
-
 .form-container {
-    margin: 2rem auto; // Add margin for spacö
+    margin: 2rem auto; // Add margin for space
     padding: 2rem; // Add padding for content spacing
     max-width: 400px; // Limit the width of forms for alignment
     border-radius: 8px; // Rounded corners
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); // Subtle shadow
   }
+
+  @import '~bootstrap/scss/bootstrap.scss';

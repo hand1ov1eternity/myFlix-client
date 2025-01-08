@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { MovieCard } from "../movie-card/movie-card";
 import { MovieView } from "../movie-view/movie-view";
 import { LoginView } from "../login-view/login-view";
@@ -43,7 +43,7 @@ export const MainView = () => {
   }, [token]);
 
   return (
-    <Router>
+    <BrowserRouter>
        <NavigationBar
         user={user}
         onLoggedOut={() => {
@@ -71,7 +71,6 @@ export const MainView = () => {
                   </Col>
                 }
               />
-              <Route path="*" element={<Navigate to="/Login" />} />
 
               <Route
                 path="/Signup"
@@ -83,8 +82,7 @@ export const MainView = () => {
                   </Col>
                 }
               />
-              <Route path="*" element={<Navigate to="/Signup" />} />
-
+              <Route path="*" element={<Navigate to="/Login" />} />
             </>
           ) : (
             <>
@@ -133,7 +131,7 @@ export const MainView = () => {
           )}
         </Routes>
       </Row>
-    </Router>
+    </BrowserRouter>
   );
 };
 
