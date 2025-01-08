@@ -59,14 +59,24 @@ bash
 npm start
 
 
-Open your browser and go to http://localhost:3000 to view the app.
+Open your browser and go to http://localhost:1234 to view the app.
+
 Features in Development
+
 User profile and movie data are fetched from a backend API (e.g., movie-api-bqfe.onrender.com).
+
 Users can view, edit, and delete their profiles.
+
 Movies can be filtered by genre and other criteria.
+
 API Documentation
+
 The API used by the app is available at movie-api-bqfe.onrender.com. The app performs various operations such as login, sign up, and fetching movie data via this API.
+
 Contributing
+
 Contributions are welcome! Please fork the repository, create a new branch for your changes, and open a pull request. Ensure that all changes are thoroughly tested before submitting.
+
 License
+
 This project is licensed under the MIT License - see the LICENSE file for details.
