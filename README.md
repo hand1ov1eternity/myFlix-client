@@ -1,21 +1,39 @@
 myFlix Movie App
+
 A movie discovery app built with React, Bootstrap, and Node.js that allows users to view movie details, manage their profile, and add movies to their list of favorites.
 Features
+
 User Authentication: Users can log in and sign up with a username, password, and email.
+
 Movie Discovery: Users can browse a list of movies with details like title, genre, description, and director.
+
 Favorite Movies: Users can add movies to their favorites list.
+
 Profile Management: Users can update their profile information, including username, password, email, and birthday.
+
+
 Responsive Layout: The app is built with Bootstrap for responsive design.
+
 Technologies Used
+
 Frontend: React, React Router, React Bootstrap
+
 Styling: SCSS, Bootstrap
+
 Backend: Node.js, Express.js
+
 API: Fetch API (for communicating with the backend)
+
 Authentication: JSON Web Token (JWT)
+
 Getting Started
+
 Prerequisites
+
 Node.js (v16 or higher)
+
 npm (Node Package Manager)
+
 Installing
 Clone the repository to your local machine:
 bash
