@@ -21,15 +21,15 @@ export const ProfileView = ({ user, token, movies, onUserUpdated, onUserDeleted 
 
   const handleUpdate = (e) => {
     e.preventDefault();
-
+  
     const data = {
       Username: username,
       Password: password,
       Email: email,
       Birthday: birthday,
     };
-
-    fetch(`https://movie-api-bqfe.onrender.com/users/${user.Username}`, {
+  
+    fetch(`https://movie-api-bqfe.onrender.com/users/${user.username}`, {
       method: "PUT",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -46,10 +46,11 @@ export const ProfileView = ({ user, token, movies, onUserUpdated, onUserDeleted 
         }
       })
       .then((updatedUser) => {
-        onUserUpdated(updatedUser);
+        onUserUpdated(updatedUser); // Update user state with the updated details
       })
       .catch((error) => alert(error.message));
   };
+  
 
   const handleDeregister = () => {
     const confirmDeregister = window.confirm("Are you sure you want to delete your account?");
