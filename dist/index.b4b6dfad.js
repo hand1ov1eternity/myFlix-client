@@ -27286,7 +27286,8 @@ const MainView = ()=>{
         localStorage.removeItem("user");
     };
     // Filter movies based on selected genre
-    const filteredMovies = selectedGenre ? movies.filter((movie)=>movie.genre === selectedGenre) : movies;
+    const filteredMovies = selectedGenre ? movies.filter((movie)=>movie.genre.name === selectedGenre) // Assuming movie.genre is an object with a 'name' property
+     : movies;
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.BrowserRouter), {
         children: [
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _navigationBar.NavigationBar), {
@@ -42973,8 +42974,9 @@ const NavigationBar = ({ user, onLoggedOut, setSelectedGenre })=>{
     _s();
     const [selectedOption, setSelectedOption] = (0, _react.useState)("");
     const handleGenreChange = (event)=>{
-        setSelectedOption(event.target.value);
-        setSelectedGenre(event.target.value); // Pass the selected genre to the parent (MainView)
+        const genre = event.target.value; // Get the selected genre value
+        setSelectedOption(genre); // Update selectedOption
+        setSelectedGenre(genre); // Pass the selected genre to MainView
     };
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Navbar), {
         bg: "dark",
@@ -42985,7 +42987,7 @@ const NavigationBar = ({ user, onLoggedOut, setSelectedGenre })=>{
                 children: "MyFlix"
             }, void 0, false, {
                 fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                lineNumber: 15,
+                lineNumber: 16,
                 columnNumber: 7
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Nav), {
@@ -42997,7 +42999,7 @@ const NavigationBar = ({ user, onLoggedOut, setSelectedGenre })=>{
                         children: "Home"
                     }, void 0, false, {
                         fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                        lineNumber: 18,
+                        lineNumber: 19,
                         columnNumber: 9
                     }, undefined),
                     user && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Nav).Link, {
@@ -43006,7 +43008,7 @@ const NavigationBar = ({ user, onLoggedOut, setSelectedGenre })=>{
                         children: "Profile"
                     }, void 0, false, {
                         fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                        lineNumber: 22,
+                        lineNumber: 23,
                         columnNumber: 11
                     }, undefined),
                     user && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Nav).Link, {
@@ -43014,7 +43016,7 @@ const NavigationBar = ({ user, onLoggedOut, setSelectedGenre })=>{
                         children: "Logout"
                     }, void 0, false, {
                         fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                        lineNumber: 27,
+                        lineNumber: 28,
                         columnNumber: 11
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
@@ -43030,7 +43032,7 @@ const NavigationBar = ({ user, onLoggedOut, setSelectedGenre })=>{
                                     children: "All Genres"
                                 }, void 0, false, {
                                     fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                                    lineNumber: 39,
+                                    lineNumber: 40,
                                     columnNumber: 13
                                 }, undefined),
                                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("option", {
@@ -43038,7 +43040,15 @@ const NavigationBar = ({ user, onLoggedOut, setSelectedGenre })=>{
                                     children: "Action"
                                 }, void 0, false, {
                                     fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                                    lineNumber: 40,
+                                    lineNumber: 41,
+                                    columnNumber: 13
+                                }, undefined),
+                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("option", {
+                                    value: "Crime",
+                                    children: "Crime"
+                                }, void 0, false, {
+                                    fileName: "src/components/navigation-bar/navigation-bar.jsx",
+                                    lineNumber: 42,
                                     columnNumber: 13
                                 }, undefined),
                                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("option", {
@@ -43046,38 +43056,54 @@ const NavigationBar = ({ user, onLoggedOut, setSelectedGenre })=>{
                                     children: "Comedy"
                                 }, void 0, false, {
                                     fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                                    lineNumber: 41,
+                                    lineNumber: 43,
                                     columnNumber: 13
                                 }, undefined),
                                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("option", {
-                                    value: "Drama",
-                                    children: "Drama"
+                                    value: "Historical Drama",
+                                    children: "Historical Drama"
                                 }, void 0, false, {
                                     fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                                    lineNumber: 42,
+                                    lineNumber: 44,
+                                    columnNumber: 13
+                                }, undefined),
+                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("option", {
+                                    value: "Horror",
+                                    children: "Horror"
+                                }, void 0, false, {
+                                    fileName: "src/components/navigation-bar/navigation-bar.jsx",
+                                    lineNumber: 45,
+                                    columnNumber: 13
+                                }, undefined),
+                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("option", {
+                                    value: "Sci-Fi",
+                                    children: "Sci-fi"
+                                }, void 0, false, {
+                                    fileName: "src/components/navigation-bar/navigation-bar.jsx",
+                                    lineNumber: 46,
                                     columnNumber: 13
                                 }, undefined)
                             ]
                         }, void 0, true, {
                             fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                            lineNumber: 33,
+                            lineNumber: 34,
                             columnNumber: 11
                         }, undefined)
                     }, void 0, false, {
                         fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                        lineNumber: 31,
+                        lineNumber: 32,
                         columnNumber: 9
                     }, undefined)
                 ]
             }, void 0, true, {
                 fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                lineNumber: 16,
+                lineNumber: 17,
                 columnNumber: 7
             }, undefined)
         ]
     }, void 0, true, {
         fileName: "src/components/navigation-bar/navigation-bar.jsx",
-        lineNumber: 14,
+        lineNumber: 15,
         columnNumber: 5
     }, undefined);
 };

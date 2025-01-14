@@ -61,9 +61,9 @@ export const MainView = () => {
   };
 
   // Filter movies based on selected genre
-  const filteredMovies = selectedGenre
-    ? movies.filter((movie) => movie.genre === selectedGenre)
-    : movies;
+const filteredMovies = selectedGenre
+? movies.filter((movie) => movie.genre.name === selectedGenre) // Assuming movie.genre is an object with a 'name' property
+: movies;
 
   return (
     <BrowserRouter>

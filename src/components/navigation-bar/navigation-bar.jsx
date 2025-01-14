@@ -6,8 +6,9 @@ export const NavigationBar = ({ user, onLoggedOut, setSelectedGenre }) => {
   const [selectedOption, setSelectedOption] = useState("");
 
   const handleGenreChange = (event) => {
-    setSelectedOption(event.target.value);
-    setSelectedGenre(event.target.value); // Pass the selected genre to the parent (MainView)
+    const genre = event.target.value; // Get the selected genre value
+    setSelectedOption(genre); // Update selectedOption
+    setSelectedGenre(genre); // Pass the selected genre to MainView
   };
 
   return (
@@ -32,14 +33,17 @@ export const NavigationBar = ({ user, onLoggedOut, setSelectedGenre }) => {
           
           <select
             id="genre-select"
-            value={selectedOption}
-            onChange={handleGenreChange}
+            value={selectedOption} // Set the value to the selected genre
+            onChange={handleGenreChange} // Call handleGenreChange on change
             className="form-select"
           >
             <option value="">All Genres</option>
             <option value="Action">Action</option>
+            <option value="Crime">Crime</option>
             <option value="Comedy">Comedy</option>
-            <option value="Drama">Drama</option>
+            <option value="Historical Drama">Historical Drama</option>
+            <option value="Horror">Horror</option>
+            <option value="Sci-Fi">Sci-fi</option>
             {/* Add more genres as needed */}
           </select>
         </div>
@@ -47,5 +51,6 @@ export const NavigationBar = ({ user, onLoggedOut, setSelectedGenre }) => {
     </Navbar>
   );
 };
+
 
 
