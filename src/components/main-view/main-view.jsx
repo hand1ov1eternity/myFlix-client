@@ -12,6 +12,7 @@ export const MainView = () => {
   const [movies, setMovies] = useState([]);
   const [user, setUser] = useState(null);
   const [token, setToken] = useState(null);
+  const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
     if (!token) return;
@@ -41,6 +42,14 @@ export const MainView = () => {
       });
   }, [token]);
 
+  const handleSearch = (query) => {
+    setSearchQuery(query.toLowerCase()); // Store the search query in lowercase for case-insensitive matching
+  };
+
+  const filteredMovies = movies.filter((movie) =>
+    movie.title.toLowerCase().includes(searchQuery)
+  );
+
   return (
     <BrowserRouter>
       <NavigationBar
@@ -49,6 +58,7 @@ export const MainView = () => {
           setUser(null);
           setToken(null);
         }}
+        onSearch={handleSearch} // Pass the search function to the NavigationBar
       />
       <Row>
         <Routes>
@@ -82,10 +92,10 @@ export const MainView = () => {
               <Route
                 path="/movies"
                 element={
-                  movies.length === 0 ? (
-                    <div>No movies available!</div>
+                  filteredMovies.length === 0 ? (
+                    <div>No movies found!</div>
                   ) : (
-                    movies.map((movie) => (
+                    filteredMovies.map((movie) => (
                       <Col className="mb-4" key={movie.id} md={3}>
                         <MovieCard movie={movie} />
                       </Col>
@@ -116,3 +126,4 @@ export const MainView = () => {
     </BrowserRouter>
   );
 };
+
