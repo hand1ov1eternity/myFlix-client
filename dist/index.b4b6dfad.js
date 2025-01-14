@@ -42974,9 +42974,8 @@ const NavigationBar = ({ user, onLoggedOut, setSelectedGenre })=>{
     _s();
     const [selectedOption, setSelectedOption] = (0, _react.useState)("");
     const handleGenreChange = (event)=>{
-        const genre = event.target.value; // Get the selected genre value
-        setSelectedOption(genre); // Update selectedOption
-        setSelectedGenre(genre); // Pass the selected genre to MainView
+        setSelectedOption(event.target.value);
+        setSelectedGenre(event.target.value); // Pass the selected genre to the parent (MainView)
     };
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Navbar), {
         bg: "dark",
@@ -42987,123 +42986,146 @@ const NavigationBar = ({ user, onLoggedOut, setSelectedGenre })=>{
                 children: "MyFlix"
             }, void 0, false, {
                 fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                lineNumber: 16,
+                lineNumber: 15,
                 columnNumber: 7
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Nav), {
                 className: "ml-auto",
-                children: [
-                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Nav).Link, {
-                        as: (0, _reactRouterDom.Link),
-                        to: "/movies",
-                        children: "Home"
-                    }, void 0, false, {
-                        fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                        lineNumber: 19,
-                        columnNumber: 9
-                    }, undefined),
-                    user && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Nav).Link, {
-                        as: (0, _reactRouterDom.Link),
-                        to: "/profile",
-                        children: "Profile"
-                    }, void 0, false, {
-                        fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                        lineNumber: 23,
-                        columnNumber: 11
-                    }, undefined),
-                    user && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Nav).Link, {
-                        onClick: onLoggedOut,
-                        children: "Logout"
-                    }, void 0, false, {
-                        fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                        lineNumber: 28,
-                        columnNumber: 11
-                    }, undefined),
-                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-                        className: "genre-dropdown",
-                        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("select", {
-                            id: "genre-select",
-                            value: selectedOption,
-                            onChange: handleGenreChange,
-                            className: "form-select",
-                            children: [
-                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("option", {
-                                    value: "",
-                                    children: "All Genres"
-                                }, void 0, false, {
-                                    fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                                    lineNumber: 40,
-                                    columnNumber: 13
-                                }, undefined),
-                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("option", {
-                                    value: "Action",
-                                    children: "Action"
-                                }, void 0, false, {
-                                    fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                                    lineNumber: 41,
-                                    columnNumber: 13
-                                }, undefined),
-                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("option", {
-                                    value: "Crime",
-                                    children: "Crime"
-                                }, void 0, false, {
-                                    fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                                    lineNumber: 42,
-                                    columnNumber: 13
-                                }, undefined),
-                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("option", {
-                                    value: "Comedy",
-                                    children: "Comedy"
-                                }, void 0, false, {
-                                    fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                                    lineNumber: 43,
-                                    columnNumber: 13
-                                }, undefined),
-                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("option", {
-                                    value: "Historical Drama",
-                                    children: "Historical Drama"
-                                }, void 0, false, {
-                                    fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                                    lineNumber: 44,
-                                    columnNumber: 13
-                                }, undefined),
-                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("option", {
-                                    value: "Horror",
-                                    children: "Horror"
-                                }, void 0, false, {
-                                    fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                                    lineNumber: 45,
-                                    columnNumber: 13
-                                }, undefined),
-                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("option", {
-                                    value: "Sci-Fi",
-                                    children: "Sci-fi"
-                                }, void 0, false, {
-                                    fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                                    lineNumber: 46,
-                                    columnNumber: 13
-                                }, undefined)
-                            ]
-                        }, void 0, true, {
+                children: user ? /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
+                    children: [
+                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Nav).Link, {
+                            as: (0, _reactRouterDom.Link),
+                            to: "/movies",
+                            children: "Home"
+                        }, void 0, false, {
                             fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                            lineNumber: 34,
-                            columnNumber: 11
+                            lineNumber: 21,
+                            columnNumber: 13
+                        }, undefined),
+                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Nav).Link, {
+                            as: (0, _reactRouterDom.Link),
+                            to: "/profile",
+                            children: "Profile"
+                        }, void 0, false, {
+                            fileName: "src/components/navigation-bar/navigation-bar.jsx",
+                            lineNumber: 24,
+                            columnNumber: 13
+                        }, undefined),
+                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Nav).Link, {
+                            onClick: onLoggedOut,
+                            children: "Logout"
+                        }, void 0, false, {
+                            fileName: "src/components/navigation-bar/navigation-bar.jsx",
+                            lineNumber: 27,
+                            columnNumber: 13
+                        }, undefined),
+                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                            className: "genre-dropdown",
+                            children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("select", {
+                                id: "genre-select",
+                                value: selectedOption,
+                                onChange: handleGenreChange,
+                                className: "form-select",
+                                children: [
+                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("option", {
+                                        value: "",
+                                        children: "All Genres"
+                                    }, void 0, false, {
+                                        fileName: "src/components/navigation-bar/navigation-bar.jsx",
+                                        lineNumber: 38,
+                                        columnNumber: 13
+                                    }, undefined),
+                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("option", {
+                                        value: "Action",
+                                        children: "Action"
+                                    }, void 0, false, {
+                                        fileName: "src/components/navigation-bar/navigation-bar.jsx",
+                                        lineNumber: 39,
+                                        columnNumber: 13
+                                    }, undefined),
+                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("option", {
+                                        value: "Crime",
+                                        children: "Crime"
+                                    }, void 0, false, {
+                                        fileName: "src/components/navigation-bar/navigation-bar.jsx",
+                                        lineNumber: 40,
+                                        columnNumber: 13
+                                    }, undefined),
+                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("option", {
+                                        value: "Comedy",
+                                        children: "Comedy"
+                                    }, void 0, false, {
+                                        fileName: "src/components/navigation-bar/navigation-bar.jsx",
+                                        lineNumber: 41,
+                                        columnNumber: 13
+                                    }, undefined),
+                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("option", {
+                                        value: "Historical Drama",
+                                        children: "Historical Drama"
+                                    }, void 0, false, {
+                                        fileName: "src/components/navigation-bar/navigation-bar.jsx",
+                                        lineNumber: 42,
+                                        columnNumber: 13
+                                    }, undefined),
+                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("option", {
+                                        value: "Horror",
+                                        children: "Horror"
+                                    }, void 0, false, {
+                                        fileName: "src/components/navigation-bar/navigation-bar.jsx",
+                                        lineNumber: 43,
+                                        columnNumber: 13
+                                    }, undefined),
+                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("option", {
+                                        value: "Sci-Fi",
+                                        children: "Sci-fi"
+                                    }, void 0, false, {
+                                        fileName: "src/components/navigation-bar/navigation-bar.jsx",
+                                        lineNumber: 44,
+                                        columnNumber: 13
+                                    }, undefined)
+                                ]
+                            }, void 0, true, {
+                                fileName: "src/components/navigation-bar/navigation-bar.jsx",
+                                lineNumber: 32,
+                                columnNumber: 11
+                            }, undefined)
+                        }, void 0, false, {
+                            fileName: "src/components/navigation-bar/navigation-bar.jsx",
+                            lineNumber: 30,
+                            columnNumber: 9
                         }, undefined)
-                    }, void 0, false, {
-                        fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                        lineNumber: 32,
-                        columnNumber: 9
-                    }, undefined)
-                ]
-            }, void 0, true, {
+                    ]
+                }, void 0, true) : /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
+                    children: [
+                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Nav).Link, {
+                            as: (0, _reactRouterDom.Link),
+                            to: "/login",
+                            children: "Sign In"
+                        }, void 0, false, {
+                            fileName: "src/components/navigation-bar/navigation-bar.jsx",
+                            lineNumber: 53,
+                            columnNumber: 13
+                        }, undefined),
+                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Nav).Link, {
+                            as: (0, _reactRouterDom.Link),
+                            to: "/signup",
+                            children: "Sign Up"
+                        }, void 0, false, {
+                            fileName: "src/components/navigation-bar/navigation-bar.jsx",
+                            lineNumber: 54,
+                            columnNumber: 13
+                        }, undefined)
+                    ]
+                }, void 0, true)
+            }, void 0, false, {
                 fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                lineNumber: 17,
+                lineNumber: 16,
                 columnNumber: 7
             }, undefined)
         ]
     }, void 0, true, {
         fileName: "src/components/navigation-bar/navigation-bar.jsx",
-        lineNumber: 15,
+        lineNumber: 14,
         columnNumber: 5
     }, undefined);
 };

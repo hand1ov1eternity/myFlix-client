@@ -6,29 +6,27 @@ export const NavigationBar = ({ user, onLoggedOut, setSelectedGenre }) => {
   const [selectedOption, setSelectedOption] = useState("");
 
   const handleGenreChange = (event) => {
-    const genre = event.target.value; // Get the selected genre value
-    setSelectedOption(genre); // Update selectedOption
-    setSelectedGenre(genre); // Pass the selected genre to MainView
+    setSelectedOption(event.target.value);
+    setSelectedGenre(event.target.value); // Pass the selected genre to the parent (MainView)
   };
 
   return (
     <Navbar bg="dark" variant="dark">
       <Navbar.Brand href="/movies">MyFlix</Navbar.Brand>
       <Nav className="ml-auto">
-        {/* Home link */}
-        <Nav.Link as={Link} to="/movies">Home</Nav.Link>
+        {/* If user is logged in */}
+        {user ? (
+          <>
+            {/* Home link */}
+            <Nav.Link as={Link} to="/movies">Home</Nav.Link>
 
-        {/* Profile link - only show if the user is logged in */}
-        {user && (
-          <Nav.Link as={Link} to="/profile">Profile</Nav.Link>
-        )}
+            {/* Profile link */}
+            <Nav.Link as={Link} to="/profile">Profile</Nav.Link>
 
-        {/* Logout button - only show if the user is logged in */}
-        {user && (
-          <Nav.Link onClick={onLoggedOut}>Logout</Nav.Link>
-        )}
+            {/* Logout button */}
+            <Nav.Link onClick={onLoggedOut}>Logout</Nav.Link>
 
-        {/* Genre Dropdown using <select> */}
+            {/* Genre Dropdown using <select> */}
         <div className="genre-dropdown">
           
           <select
@@ -47,10 +45,20 @@ export const NavigationBar = ({ user, onLoggedOut, setSelectedGenre }) => {
             {/* Add more genres as needed */}
           </select>
         </div>
+
+          </>
+        ) : (
+          <>
+            {/* Sign In and Sign Up links */}
+            <Nav.Link as={Link} to="/login">Sign In</Nav.Link>
+            <Nav.Link as={Link} to="/signup">Sign Up</Nav.Link>
+          </>
+        )}
       </Nav>
     </Navbar>
   );
 };
+
 
 
 
