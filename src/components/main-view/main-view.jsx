@@ -12,7 +12,7 @@ export const MainView = () => {
   const [movies, setMovies] = useState([]);
   const [user, setUser] = useState(null);
   const [token, setToken] = useState(null);
-  const [selectedGenre, setSelectedGenre] = useState("");
+  const [selectedGenre, setSelectedGenre] = useState(""); // State to store selected genre
 
   useEffect(() => {
     // Check localStorage for token to persist login state on page reload
@@ -44,7 +44,7 @@ export const MainView = () => {
           description: doc.description,
           genre: doc.genre,
           director: doc.director,
-          imageURL: doc.imageURL
+          imageURL: doc.imageURL,
         }));
         setMovies(movies);
       })
@@ -73,89 +73,83 @@ export const MainView = () => {
         setSelectedGenre={setSelectedGenre} // Pass the setSelectedGenre function
       />
       <Row>
-      <Routes>
-  {/* Redirect to login if user is not logged in */}
-  {!user ? (
-    <>
-      <Route
-        path="/Login"
-        element={
-          <Col md={5}>
-            <div className="form-container">
-              <LoginView
-                onLoggedIn={(user, token) => {
-                  console.log("Logged-in user:", user);
-                  setUser(user);
-                  setToken(token);
-                  localStorage.setItem("token", token); // Store token in localStorage
-                  localStorage.setItem("user", JSON.stringify(user)); // Store user in localStorage
-                }}
+        <Routes>
+          {/* Redirect to login if user is not logged in */}
+          {!user ? (
+            <>
+              <Route
+                path="/Login"
+                element={
+                  <Col md={5}>
+                    <div className="form-container">
+                      <LoginView
+                        onLoggedIn={(user, token) => {
+                          setUser(user);
+                          setToken(token);
+                          localStorage.setItem("token", token); // Store token in localStorage
+                          localStorage.setItem("user", JSON.stringify(user)); // Store user in localStorage
+                        }}
+                      />
+                    </div>
+                  </Col>
+                }
               />
-            </div>
-          </Col>
-        }
-      />
-      <Route
-        path="/Signup"
-        element={
-          <Col md={5}>
-            <div className="form-container">
-              <SignupView />
-            </div>
-          </Col>
-        }
-      />
-      <Route path="*" element={<Navigate to="/Login" />} />
-    </>
-  ) : (
-    <>
-      {/* Route for the main movie list */}
-      <Route
-        path="/movies"
-        element={
-          filteredMovies.length === 0 ? (
-            <div>The list is empty!</div>
+              <Route
+                path="/Signup"
+                element={
+                  <Col md={5}>
+                    <div className="form-container">
+                      <SignupView />
+                    </div>
+                  </Col>
+                }
+              />
+              <Route path="*" element={<Navigate to="/Login" />} />
+            </>
           ) : (
-            filteredMovies.map((movie) => (
-              <Col className="mb-5" key={movie.id} md={3}>
-                <MovieCard movie={movie} />
-              </Col>
-            ))
-          )
-        }
-      />
+            <>
+              {/* Route for the main movie list */}
+              <Route
+                path="/movies"
+                element={
+                  filteredMovies.length === 0 ? (
+                    <div>The list is empty!</div>
+                  ) : (
+                    filteredMovies.map((movie) => (
+                      <Col className="mb-5" key={movie.id} md={3}>
+                        <MovieCard movie={movie} />
+                      </Col>
+                    ))
+                  )
+                }
+              />
 
-      {/* Route for the selected movie view */}
-      <Route
-        path="/movies/:movieId"
-        element={<MovieView movies={movies} user={user} token={token} onUserUpdated={setUser} />}
-      />
+              {/* Route for the selected movie view */}
+              <Route
+                path="/movies/:movieId"
+                element={<MovieView movies={movies} user={user} token={token} onUserUpdated={setUser} />}
+              />
 
-      {/* Route for the profile view */}
-      <Route
-        path="/profile"
-        element={
-          <ProfileView
-            user={user}
-            token={token}
-            movies={movies}
-            onUserUpdated={(updatedUser) => setUser(updatedUser)}
-            onUserDeleted={handleLogout} // Use the handleLogout function here
-          />
-        }
-      />
+              {/* Route for the profile view */}
+              <Route
+                path="/profile"
+                element={
+                  <ProfileView
+                    user={user}
+                    token={token}
+                    movies={movies}
+                    onUserUpdated={(updatedUser) => setUser(updatedUser)}
+                    onUserDeleted={handleLogout} // Use the handleLogout function here
+                  />
+                }
+              />
 
-      {/* Default route */}
-      <Route path="*" element={<Navigate to="/movies" />} />
-    </>
-  )}
-</Routes>
+              {/* Default route */}
+              <Route path="*" element={<Navigate to="/movies" />} />
+            </>
+          )}
+        </Routes>
       </Row>
     </BrowserRouter>
   );
 };
-
-
-
-
-
