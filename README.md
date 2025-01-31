@@ -34,27 +34,24 @@ Node.js (v16 or higher)
 
 npm (Node Package Manager)
 
-Installing
-Clone the repository to your local machine:
-bash
+**INSTALLING**
+
+**Clone the repository to your local machine:**
 
 git clone https://github.com/your-username/myFlix.git
 
 
-Navigate to the project directory:
-bash
+**Navigate to the project directory:**
 
 cd myFlix
 
 
-Install the required dependencies:
-bash
+**Install the required dependencies:**
 
 npm install
 
 
-To start the development server:
-bash
+**To start the development server:**
 
 npm start
 
