@@ -53,10 +53,10 @@ npm install
 
 **To start the development server:**
 
-npm start
+npx parcel src/index.html
 
 
-Open your browser and go to http://localhost:1234 to view the app.
+Open your browser at http://localhost:1234 to view the app.
 
 Features in Development
 
