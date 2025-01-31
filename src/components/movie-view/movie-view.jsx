@@ -26,7 +26,7 @@ export const MovieView = ({ movies, user, token, onUserUpdated }) => {
      ? (user.FavoriteMovies || []).filter((id) => id !== movie.id)
      : [...(user.FavoriteMovies || []), movie.id];
   
-    fetch(`https://movie-api-bqfe.onrender.com/users/${user.username}`, {
+     fetch(`https://movie-api-bqfe.onrender.com/users/${user.username}`, {
       method: "PUT",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -34,6 +34,7 @@ export const MovieView = ({ movies, user, token, onUserUpdated }) => {
       },
       body: JSON.stringify({ FavoriteMovies: updatedFavorites }),
     })
+    
       .then((response) => {
         if (response.ok) {
           onUserUpdated({ ...user, FavoriteMovies: updatedFavorites });

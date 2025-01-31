@@ -1,3 +1,11 @@
+.form-group #formPassword {
+  margin-bottom: 20px;
+}
+
+button[type="submit"] {
+  margin-top: 10px;
+}
+
 .movie-view {
   margin-left: 20px;
   padding: 20px;
@@ -38,14 +46,6 @@
 
 .heart-btn.favorite {
   color: red;
-}
-
-.form-group #formPassword {
-  margin-bottom: 20px;
-}
-
-button[type="submit"] {
-  margin-top: 10px;
 }
 
 .form-container {

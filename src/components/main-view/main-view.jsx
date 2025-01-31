@@ -13,6 +13,7 @@ export const MainView = () => {
   const [user, setUser] = useState(null);
   const [token, setToken] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
+  const [selectedGenre, setSelectedGenre] = useState(""); // Add this line
 
   useEffect(() => {
     if (!token) return;
@@ -46,9 +47,17 @@ export const MainView = () => {
     setSearchQuery(query.toLowerCase()); // Store the search query in lowercase for case-insensitive matching
   };
 
-  const filteredMovies = movies.filter((movie) =>
-    movie.title.toLowerCase().includes(searchQuery)
-  );
+  // Filter movies by search query and selected genre
+  const filteredMovies = movies.filter((movie) => {
+    const movieGenre = typeof movie.genre === "string" ? movie.genre : movie.genre?.name || ""; // Handle both string and object cases
+  
+    return (
+      movie.title.toLowerCase().includes(searchQuery) &&
+      (selectedGenre === "" || movieGenre.toLowerCase() === selectedGenre.toLowerCase()) // Case-insensitive comparison
+    );
+  });
+  
+  
 
   return (
     <BrowserRouter>
@@ -58,7 +67,8 @@ export const MainView = () => {
           setUser(null);
           setToken(null);
         }}
-        onSearch={handleSearch} // Pass the search function to the NavigationBar
+        setSelectedGenre={setSelectedGenre} 
+        onSearch={handleSearch} 
       />
       <Row>
         <Routes>
@@ -126,4 +136,3 @@ export const MainView = () => {
     </BrowserRouter>
   );
 };
-
