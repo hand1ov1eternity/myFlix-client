@@ -32,7 +32,7 @@ export const MainView = () => {
           description: doc.description,
           genre: doc.genre,
           director: doc.director,
-          imageURL: doc.imageURL
+          imageURL: doc.imageURL,
         }));
         setMovies(movies);
       })
@@ -62,7 +62,7 @@ export const MainView = () => {
                     <div className="form-container">
                       <LoginView
                         onLoggedIn={(user, token) => {
-                          console.log("Logged-in user:", user);
+                          console.log("Logged-in user:", user); // Debugging
                           setUser(user);
                           setToken(token);
                         }}
@@ -113,7 +113,7 @@ export const MainView = () => {
                 path="/profile"
                 element={
                   <ProfileView
-                    user={user}  // Pass the user object here
+                    user={user} // Pass the user object here
                     token={token}
                     movies={movies}
                     onUserUpdated={(updatedUser) => setUser(updatedUser)}

@@ -3,9 +3,11 @@ import { Row, Col, Form, Button } from "react-bootstrap";
 import { MovieCard } from "../movie-card/movie-card";
 
 export const ProfileView = ({ user, token, movies, onUserUpdated, onUserDeleted }) => {
-  const [username, setUsername] = useState(user?.Username || '');
-  const [email, setEmail] = useState(user?.Email || '');
-  const [birthday, setBirthday] = useState(user?.Birthday || '');
+  console.log("User in ProfileView:", user); // Debugging
+
+  const [username, setUsername] = useState(user?.username || "");
+  const [email, setEmail] = useState(user?.email || "");
+  const [birthday, setBirthday] = useState(user?.birthday || "");
   const [password, setPassword] = useState("");
   const [favoriteMovies, setFavoriteMovies] = useState([]);
 
@@ -21,13 +23,13 @@ export const ProfileView = ({ user, token, movies, onUserUpdated, onUserDeleted 
     e.preventDefault();
 
     const data = {
-      Username: username,
-      Password: password,
-      Email: email,
-      Birthday: birthday,
+      username: username,
+      password: password,
+      email: email,
+      birthday: birthday,
     };
 
-    fetch(`https://movie-api-bqfe.onrender.com/users/${user?.Username}`, {
+    fetch(`https://movie-api-bqfe.onrender.com/users/${user?.username}`, {
       method: "PUT",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -53,7 +55,7 @@ export const ProfileView = ({ user, token, movies, onUserUpdated, onUserDeleted 
     const confirmDeregister = window.confirm("Are you sure you want to delete your account?");
 
     if (confirmDeregister) {
-      fetch(`https://movie-api-bqfe.onrender.com/users/${user?.Username}`, {
+      fetch(`https://movie-api-bqfe.onrender.com/users/${user?.username}`, {
         method: "DELETE",
         headers: { Authorization: `Bearer ${token}` },
       })
@@ -74,9 +76,9 @@ export const ProfileView = ({ user, token, movies, onUserUpdated, onUserDeleted 
       <Col md={6}>
         <h3>Profile Information</h3>
         {/* Displaying the user's info with optional chaining */}
-        <p><strong>Username:</strong> {user?.Username || "N/A"}</p>
-        <p><strong>Email:</strong> {user?.Email || "N/A"}</p>
-        <p><strong>Birthday:</strong> {user?.Birthday || "N/A"}</p>
+        <p><strong>Username:</strong> {user?.username || "N/A"}</p>
+        <p><strong>Email:</strong> {user?.email || "N/A"}</p>
+        <p><strong>Birthday:</strong> {user?.birthday || "N/A"}</p>
 
         <h4>Update Profile</h4>
         <Form onSubmit={handleUpdate}>
