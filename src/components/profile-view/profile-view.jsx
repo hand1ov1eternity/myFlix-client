@@ -3,33 +3,31 @@ import { Row, Col, Form, Button } from "react-bootstrap";
 import { MovieCard } from "../movie-card/movie-card";
 
 export const ProfileView = ({ user, token, movies, onUserUpdated, onUserDeleted }) => {
-  const [username, setUsername] = useState(user.Username);
-  const [email, setEmail] = useState(user.Email);
-  const [birthday, setBirthday] = useState(user.Birthday);
+  const [username, setUsername] = useState(user?.Username || '');
+  const [email, setEmail] = useState(user?.Email || '');
+  const [birthday, setBirthday] = useState(user?.Birthday || '');
   const [password, setPassword] = useState("");
   const [favoriteMovies, setFavoriteMovies] = useState([]);
 
   useEffect(() => {
-
-       // Check if user.FavoriteMovies exists and is an array before filtering
-       if (!user.FavoriteMovies || !Array.isArray(user.FavoriteMovies)) {
-        return; // If FavoriteMovies is not defined or not an array, return early
-      }
+    if (!user?.FavoriteMovies || !Array.isArray(user?.FavoriteMovies)) {
+      return; // If FavoriteMovies is not defined or not an array, return early
+    }
     const filteredFavorites = movies.filter((m) => user.FavoriteMovies.includes(m.id));
     setFavoriteMovies(filteredFavorites);
-  }, [movies, user.FavoriteMovies]);
+  }, [movies, user?.FavoriteMovies]);
 
   const handleUpdate = (e) => {
     e.preventDefault();
-  
+
     const data = {
       Username: username,
       Password: password,
       Email: email,
       Birthday: birthday,
     };
-  
-    fetch(`https://movie-api-bqfe.onrender.com/users/${user.username}`, {
+
+    fetch(`https://movie-api-bqfe.onrender.com/users/${user?.Username}`, {
       method: "PUT",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -50,13 +48,12 @@ export const ProfileView = ({ user, token, movies, onUserUpdated, onUserDeleted 
       })
       .catch((error) => alert(error.message));
   };
-  
 
   const handleDeregister = () => {
     const confirmDeregister = window.confirm("Are you sure you want to delete your account?");
 
     if (confirmDeregister) {
-      fetch(`https://movie-api-bqfe.onrender.com/users/${user.Username}`, {
+      fetch(`https://movie-api-bqfe.onrender.com/users/${user?.Username}`, {
         method: "DELETE",
         headers: { Authorization: `Bearer ${token}` },
       })
@@ -76,6 +73,12 @@ export const ProfileView = ({ user, token, movies, onUserUpdated, onUserDeleted 
     <Row className="mt-5">
       <Col md={6}>
         <h3>Profile Information</h3>
+        {/* Displaying the user's info with optional chaining */}
+        <p><strong>Username:</strong> {user?.Username || "N/A"}</p>
+        <p><strong>Email:</strong> {user?.Email || "N/A"}</p>
+        <p><strong>Birthday:</strong> {user?.Birthday || "N/A"}</p>
+
+        <h4>Update Profile</h4>
         <Form onSubmit={handleUpdate}>
           <Form.Group controlId="formUsername" className="mb-3">
             <Form.Label>Username:</Form.Label>

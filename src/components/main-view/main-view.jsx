@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { LoginView } from "../login-view/login-view";
-import { SignupView } from "../signup-view/signup-view";
 import { MovieCard } from "../movie-card/movie-card";
 import { MovieView } from "../movie-view/movie-view";
+import { LoginView } from "../login-view/login-view";
+import { SignupView } from "../signup-view/signup-view";
 import { ProfileView } from "../profile-view/profile-view";
 import { Row, Col } from "react-bootstrap";
 import { NavigationBar } from "../navigation-bar/navigation-bar";
@@ -12,8 +12,6 @@ export const MainView = () => {
   const [movies, setMovies] = useState([]);
   const [user, setUser] = useState(null);
   const [token, setToken] = useState(null);
-  const [searchQuery, setSearchQuery] = useState("");
-  const [selectedGenre, setSelectedGenre] = useState(""); // Add this line
 
   useEffect(() => {
     if (!token) return;
@@ -34,7 +32,7 @@ export const MainView = () => {
           description: doc.description,
           genre: doc.genre,
           director: doc.director,
-          imageURL: doc.imageURL,
+          imageURL: doc.imageURL
         }));
         setMovies(movies);
       })
@@ -43,91 +41,91 @@ export const MainView = () => {
       });
   }, [token]);
 
-  const handleSearch = (query) => {
-    setSearchQuery(query.toLowerCase()); // Store the search query in lowercase for case-insensitive matching
-  };
-
-  // Filter movies by search query and selected genre
-  const filteredMovies = movies.filter((movie) => {
-    const movieGenre = typeof movie.genre === "string" ? movie.genre : movie.genre?.name || ""; // Handle both string and object cases
-  
-    return (
-      movie.title.toLowerCase().includes(searchQuery) &&
-      (selectedGenre === "" || movieGenre.toLowerCase() === selectedGenre.toLowerCase()) // Case-insensitive comparison
-    );
-  });
-  
-  
-
   return (
     <BrowserRouter>
       <NavigationBar
         user={user}
         onLoggedOut={() => {
           setUser(null);
-          setToken(null);
+          setToken(null); // Clear the user and token on logout
         }}
-        setSelectedGenre={setSelectedGenre} 
-        onSearch={handleSearch} 
       />
       <Row>
         <Routes>
+          {/* Redirect to login if user is not logged in */}
           {!user ? (
             <>
               <Route
-                path="/login"
+                path="/Login"
                 element={
                   <Col md={5}>
-                    <LoginView
-                      onLoggedIn={(user, token) => {
-                        setUser(user);
-                        setToken(token);
-                      }}
-                    />
+                    <div className="form-container">
+                      <LoginView
+                        onLoggedIn={(user, token) => {
+                          console.log("Logged-in user:", user);
+                          setUser(user);
+                          setToken(token);
+                        }}
+                      />
+                    </div>
                   </Col>
                 }
               />
+
               <Route
-                path="/signup"
+                path="/Signup"
                 element={
                   <Col md={5}>
-                    <SignupView />
+                    <div className="form-container">
+                      <SignupView />
+                    </div>
                   </Col>
                 }
               />
-              <Route path="*" element={<Navigate to="/login" />} />
+              <Route path="*" element={<Navigate to="/Login" />} />
             </>
           ) : (
             <>
+              {/* Route for the main movie list */}
               <Route
                 path="/movies"
                 element={
-                  filteredMovies.length === 0 ? (
-                    <div>No movies found!</div>
+                  movies.length === 0 ? (
+                    <div>The list is empty!</div>
                   ) : (
-                    filteredMovies.map((movie) => (
-                      <Col className="mb-4" key={movie.id} md={3}>
+                    movies.map((movie) => (
+                      <Col className="mb-5" key={movie.id} md={3}>
                         <MovieCard movie={movie} />
                       </Col>
                     ))
                   )
                 }
               />
+
+              {/* Route for the selected movie view */}
               <Route
                 path="/movies/:movieId"
-                element={<MovieView movies={movies} user={user} />}
+                element={<MovieView movies={movies} user={user} token={token} onUserUpdated={setUser} />}
               />
+
+              {/* Route for the profile view */}
               <Route
                 path="/profile"
                 element={
                   <ProfileView
-                    user={user}
+                    user={user}  // Pass the user object here
                     token={token}
                     movies={movies}
                     onUserUpdated={(updatedUser) => setUser(updatedUser)}
+                    onUserDeleted={() => {
+                      setUser(null);
+                      setToken(null);
+                    }}
                   />
                 }
               />
+
+              {/* Default route */}
               <Route path="*" element={<Navigate to="/movies" />} />
             </>
           )}
