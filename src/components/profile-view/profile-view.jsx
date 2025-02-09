@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Row, Col, Form, Button } from "react-bootstrap";
 import { MovieCard } from "../movie-card/movie-card";
+import "./profile-view.scss"; // Import the SCSS file
 
 export const ProfileView = ({ user, token, movies, onUserUpdated, onUserDeleted }) => {
   console.log("User in ProfileView:", user); // Debugging
@@ -72,85 +73,87 @@ export const ProfileView = ({ user, token, movies, onUserUpdated, onUserDeleted 
   };
 
   return (
-    <Row className="mt-5">
-      <Col md={6}>
-        <h3>Profile Information</h3>
-        {/* Displaying the user's info with optional chaining */}
-        <p><strong>Username:</strong> {user?.username || "N/A"}</p>
-        <p><strong>Email:</strong> {user?.email || "N/A"}</p>
-        <p><strong>Birthday:</strong> {user?.birthday || "N/A"}</p>
+    <div className="profile-view-container"> {/* Wrapper for SCSS styling */}
+      <Row className="mt-5">
+        <Col md={6}>
+          <h3>Profile Information</h3>
+          {/* Displaying the user's info with optional chaining */}
+          <p><strong>Username:</strong> {user?.username || "N/A"}</p>
+          <p><strong>Email:</strong> {user?.email || "N/A"}</p>
+          <p><strong>Birthday:</strong> {user?.birthday || "N/A"}</p>
 
-        <h4>Update Profile</h4>
-        <Form onSubmit={handleUpdate}>
-          <Form.Group controlId="formUsername" className="mb-3">
-            <Form.Label>Username:</Form.Label>
-            <Form.Control
-              type="text"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              required
-              minLength="3"
-            />
-          </Form.Group>
+          <h4>Update Profile</h4>
+          <Form onSubmit={handleUpdate}>
+            <Form.Group controlId="formUsername" className="mb-3">
+              <Form.Label>Username:</Form.Label>
+              <Form.Control
+                type="text"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                required
+                minLength="3"
+              />
+            </Form.Group>
 
-          <Form.Group controlId="formPassword" className="mb-3">
-            <Form.Label>Password:</Form.Label>
-            <Form.Control
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-          </Form.Group>
+            <Form.Group controlId="formPassword" className="mb-3">
+              <Form.Label>Password:</Form.Label>
+              <Form.Control
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+            </Form.Group>
 
-          <Form.Group controlId="formEmail" className="mb-3">
-            <Form.Label>Email:</Form.Label>
-            <Form.Control
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-          </Form.Group>
+            <Form.Group controlId="formEmail" className="mb-3">
+              <Form.Label>Email:</Form.Label>
+              <Form.Control
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
+            </Form.Group>
 
-          <Form.Group controlId="formBirthday" className="mb-3">
-            <Form.Label>Birthday:</Form.Label>
-            <Form.Control
-              type="date"
-              value={birthday}
-              onChange={(e) => setBirthday(e.target.value)}
-              required
-            />
-          </Form.Group>
+            <Form.Group controlId="formBirthday" className="mb-3">
+              <Form.Label>Birthday:</Form.Label>
+              <Form.Control
+                type="date"
+                value={birthday}
+                onChange={(e) => setBirthday(e.target.value)}
+                required
+              />
+            </Form.Group>
 
-          <Button variant="primary" type="submit">
-            Update Profile
+            <Button variant="primary" type="submit">
+              Update Profile
+            </Button>
+          </Form>
+
+          <Button
+            variant="danger"
+            className="mt-3"
+            onClick={handleDeregister}
+          >
+            Delete Account
           </Button>
-        </Form>
+        </Col>
 
-        <Button
-          variant="danger"
-          className="mt-3"
-          onClick={handleDeregister}
-        >
-          Delete Account
-        </Button>
-      </Col>
-
-      <Col md={6}>
-        <h3>Favorite Movies</h3>
-        {favoriteMovies.length === 0 ? (
-          <p>You have no favorite movies.</p>
-        ) : (
-          <Row>
-            {favoriteMovies.map((movie) => (
-              <Col key={movie.id} className="mb-4" md={6}>
-                <MovieCard movie={movie} />
-              </Col>
-            ))}
-          </Row>
-        )}
-      </Col>
-    </Row>
+        <Col md={6}>
+          <h3>Favorite Movies</h3>
+          {favoriteMovies.length === 0 ? (
+            <p>You have no favorite movies.</p>
+          ) : (
+            <Row>
+              {favoriteMovies.map((movie) => (
+                <Col key={movie.id} className="mb-4" md={6}>
+                  <MovieCard movie={movie} />
+                </Col>
+              ))}
+            </Row>
+          )}
+        </Col>
+      </Row>
+    </div>
   );
 };

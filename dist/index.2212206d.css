@@ -48,6 +48,15 @@ button[type="submit"] {
   margin-top: 10px;
 }
 
+.profile-view-container {
+  margin-left: 20px;
+  padding-left: 20px;
+}
+
+.navigation-bar-container {
+  padding-left: 5px;
+}
+
 .form-container {
   border-radius: 8px;
   max-width: 400px;
