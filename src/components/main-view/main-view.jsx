@@ -12,6 +12,8 @@ export const MainView = () => {
   const [movies, setMovies] = useState([]);
   const [user, setUser] = useState(null);
   const [token, setToken] = useState(null);
+  const [selectedGenre, setSelectedGenre] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");  // Add searchQuery state
 
   useEffect(() => {
     if (!token) return;
@@ -41,18 +43,30 @@ export const MainView = () => {
       });
   }, [token]);
 
+  const handleSearch = (query) => {
+    setSearchQuery(query); // Update the search query state
+  };
+
+  // Filter movies by genre and search query
+  const filteredMovies = movies.filter((movie) => {
+    const matchesGenre = selectedGenre ? movie.genre.name === selectedGenre : true;
+    const matchesSearchQuery = movie.title.toLowerCase().includes(searchQuery.toLowerCase());
+    return matchesGenre && matchesSearchQuery;
+  });
+
   return (
     <BrowserRouter>
       <NavigationBar
         user={user}
         onLoggedOut={() => {
           setUser(null);
-          setToken(null); // Clear the user and token on logout
+          setToken(null);
         }}
+        setSelectedGenre={setSelectedGenre}
+        onSearch={handleSearch} // Pass the function
       />
       <Row>
         <Routes>
-          {/* Redirect to login if user is not logged in */}
           {!user ? (
             <>
               <Route
@@ -62,7 +76,6 @@ export const MainView = () => {
                     <div className="form-container">
                       <LoginView
                         onLoggedIn={(user, token) => {
-                          console.log("Logged-in user:", user); // Debugging
                           setUser(user);
                           setToken(token);
                         }}
@@ -71,29 +84,18 @@ export const MainView = () => {
                   </Col>
                 }
               />
-
-              <Route
-                path="/Signup"
-                element={
-                  <Col md={5}>
-                    <div className="form-container">
-                      <SignupView />
-                    </div>
-                  </Col>
-                }
-              />
+              <Route path="/Signup" element={<SignupView />} />
               <Route path="*" element={<Navigate to="/Login" />} />
             </>
           ) : (
             <>
-              {/* Route for the main movie list */}
               <Route
                 path="/movies"
                 element={
-                  movies.length === 0 ? (
-                    <div>The list is empty!</div>
+                  filteredMovies.length === 0 ? (
+                    <div>No movies found for this genre or search query!</div>
                   ) : (
-                    movies.map((movie) => (
+                    filteredMovies.map((movie) => (
                       <Col className="mb-5" key={movie.id} md={3}>
                         <MovieCard movie={movie} />
                       </Col>
@@ -101,19 +103,15 @@ export const MainView = () => {
                   )
                 }
               />
-
-              {/* Route for the selected movie view */}
               <Route
                 path="/movies/:movieId"
                 element={<MovieView movies={movies} user={user} token={token} onUserUpdated={setUser} />}
               />
-
-              {/* Route for the profile view */}
               <Route
                 path="/profile"
                 element={
                   <ProfileView
-                    user={user} // Pass the user object here
+                    user={user}
                     token={token}
                     movies={movies}
                     onUserUpdated={(updatedUser) => setUser(updatedUser)}
@@ -124,8 +122,6 @@ export const MainView = () => {
                   />
                 }
               />
-
-              {/* Default route */}
               <Route path="*" element={<Navigate to="/movies" />} />
             </>
           )}

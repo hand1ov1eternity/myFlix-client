@@ -18,7 +18,11 @@ export const NavigationBar = ({ user, onLoggedOut, setSelectedGenre, onSearch })
 
   const handleSearchSubmit = (event) => {
     event.preventDefault();
-    onSearch(searchQuery); // Pass the search query to the parent (MainView)
+    if (onSearch) {
+      onSearch(searchQuery); // Pass the search query to the parent (MainView)
+    } else {
+      console.error("onSearch function is missing!");
+    }
   };
 
   return (
