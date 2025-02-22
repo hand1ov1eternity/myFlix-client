@@ -1,6 +1,12 @@
 $primary: SeaGreen;
 $body-bg: Honeydew;
 
+body {
+  background-color: white;
+  color: #000; /* Optional: adjust text color to contrast with white background */
+}
+
+
 .form-container {
     margin: 2rem auto; // Add margin for space
     padding: 2rem; // Add padding for content spacing
