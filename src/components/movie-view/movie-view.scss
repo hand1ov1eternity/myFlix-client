@@ -1,46 +1,58 @@
 .movie-view {
-  padding: 20px; // Add padding around the container
+  padding: 20px;
   margin-left: 20px;
 }
 
-
 .movie-image {
-  max-width: 30%; // You can change the percentage to whatever size you want
-  height: auto; // Ensures the aspect ratio is maintained
-  display: block; // Removes extra space below the image
-  
+  max-width: 30%; // Adjust the size as needed
+  height: auto;
+  display: block;
+  margin-bottom: 20px; // Add space below the image
 }
 
+.movie-view div {
+  margin-bottom: 15px; // Add space between each line of text
+}
+
+.movie-view span:first-child {
+  font-weight: bold;
+  font-size: 1.2rem; // Adjust font size for labels
+}
+
+.movie-view span:not(:first-child) {
+  font-size: 1.1rem; // Adjust font size for the content
+}
 
 .back-button {
-    padding: 4px 12px 4px 12px;
-    color: whitesmoke;
-    background-color: dodgerblue;
-    border: none;
-    border-radius: 4px;
+  padding: 6px 15px;
+  color: whitesmoke;
+  background-color: dodgerblue;
+  border: none;
+  border-radius: 4px;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+.heart-btn {
+  background-color: transparent;
+  border: none;
+  color: #ff4b5c;
+  font-size: 2rem;
+  padding: 0.5rem;
+  cursor: pointer;
+  transition: color 0.3s, transform 0.2s ease-in-out;
+
+  &:hover {
+    color: #ff6f70;
+    transform: scale(1.2);
   }
 
-  .heart-btn {
-    background-color: transparent; // Make the background transparent
-    border: none; // Remove default button borders
-    color: #ff4b5c; // Heart color (red)
-    font-size: 2rem; // Adjust size of the heart
-    padding: 0.5rem;
-    cursor: pointer;
-    transition: color 0.3s, transform 0.2s ease-in-out;
-  
-    &:hover {
-      color: #ff6f70; // Lighten heart color on hover
-      transform: scale(1.2); // Slight scale effect when hovered
-    }
-  
-    &:focus {
-      outline: none; // Remove focus outline
-    }
-  
-    // When the movie is favorited, the heart turns red
-    &.favorite {
-      color: red; // Red color when favorited
-    }
+  &:focus {
+    outline: none;
   }
-  
+
+  &.favorite {
+    color: red;
+  }
+}
