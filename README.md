@@ -75,6 +75,6 @@ Contributing
 
 Contributions are welcome! Please fork the repository, create a new branch for your changes, and open a pull request. Ensure that all changes are thoroughly tested before submitting.
 
-License
+Live Version
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+https://myflixappclient.netlify.app/Login
