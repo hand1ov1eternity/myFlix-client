@@ -1,7 +1,8 @@
 myFlix Movie App
 
 A movie discovery app built with React, Bootstrap, and Node.js that allows users to view movie details, manage their profile, and add movies to their list of favorites.
-Features
+
+**FEATURES**
 
 User Authentication: Users can log in and sign up with a username, password, and email.
 
