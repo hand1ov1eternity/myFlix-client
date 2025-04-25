@@ -33,13 +33,13 @@ export const LoginView = ({ onLoggedIn }) => {
           };
   
           // Save user and token in localStorage
-          localStorage.setItem("user", JSON.stringify(data.user));
+          localStorage.setItem("user", JSON.stringify(user));
           localStorage.setItem("token", data.token);
   
-          // Call onLoggedIn with the updated user and token
-          onLoggedIn(data.user, data.token);
+          // Fetch full user profile with the token
+          fetchUserProfile(data.user.username, data.token);
         } else {
-          alert("No such user");
+          alert(data.message || "No such user or incorrect password");
         }
       })
       .catch((e) => {
@@ -47,31 +47,51 @@ export const LoginView = ({ onLoggedIn }) => {
       });
   };
 
-    return (
-      <Form onSubmit={handleSubmit}>
-        <Form.Group controlId="formUsername">
-          <Form.Label>Username:</Form.Label>
-          <Form.Control
-            type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            required
-            minLength="3" 
-          />
-        </Form.Group>
-  
-        <Form.Group controlId="formPassword">
-          <Form.Label>Password:</Form.Label>
-          <Form.Control
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </Form.Group>
-        <Button variant="primary" type="submit">
-          Submit
-        </Button>
-      </Form>
-    );
+  // Fetch full user profile after login
+  const fetchUserProfile = (username, token) => {
+    fetch(`https://movie-api-bqfe.onrender.com/users/${username}`, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then(res => res.json())
+      .then(userProfile => {
+        console.log("Fetched user profile: ", userProfile);
+        // Call onLoggedIn with the updated user profile and token
+        onLoggedIn(userProfile, token);
+      })
+      .catch((err) => {
+        console.error("Error fetching user profile", err);
+        alert("Failed to fetch user profile.");
+      });
   };
+
+  return (
+    <Form onSubmit={handleSubmit}>
+      <Form.Group controlId="formUsername">
+        <Form.Label>Username:</Form.Label>
+        <Form.Control
+          type="text"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          required
+          minLength="3" 
+        />
+      </Form.Group>
+  
+      <Form.Group controlId="formPassword">
+        <Form.Label>Password:</Form.Label>
+        <Form.Control
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+        />
+      </Form.Group>
+      <Button variant="primary" type="submit">
+        Submit
+      </Button>
+    </Form>
+  );
+};

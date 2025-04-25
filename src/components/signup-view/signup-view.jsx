@@ -31,6 +31,7 @@ export const SignupView = () => {
         alert("Signup failed");
       }
     });
+    
   };
 
   return (
