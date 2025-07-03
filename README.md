@@ -26,9 +26,13 @@
 ## 🛠️ Technologies Used
 
 Frontend: React, React Router, React Bootstrap
+
 Styling: SCSS, Bootstrap
+
 Backend: Node.js, Express.js
+
 API: Fetch API
+
 Authentication: JSON Web Token (JWT)
 
 ---
@@ -80,7 +84,7 @@ Managing favorites
 
 Updating profiles
 
-###🤝 Contributing
+### 🤝 Contributing
 Contributions are welcome!
 To contribute:
 
