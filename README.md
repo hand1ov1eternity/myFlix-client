@@ -96,4 +96,6 @@ Make and test your changes
 
 Submit a pull request
 
-Built with React, Bootstrap, and a love for movies 🎬🍿
+---
+
+> Built with React, Bootstrap, and a love for movies 🎬🍿 — always a work in progress 🚧.
