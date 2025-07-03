@@ -80,7 +80,7 @@ Managing favorites
 
 Updating profiles
 
-🤝 Contributing
+###🤝 Contributing
 Contributions are welcome!
 To contribute:
 
