@@ -73,7 +73,7 @@ Open your browser at:
 http://localhost:1234
 ```
 
-🚧 ### Features in Development
+### 🚧 Features in Development
 
 🔄 User profile and movie data are fetched from a backend API (movie-api-bqfe.onrender.com
 ).
@@ -82,7 +82,7 @@ http://localhost:1234
 
 🎯 Movies can be filtered by genre and other criteria.
 
-📖 ##API Documentation
+### 📖 API Documentation
 
 The app communicates with a REST API hosted at:
 
@@ -99,9 +99,10 @@ Managing favorites
 
 Updating profiles
 
-🤝 ###Contributing
+### 🤝 Contributing
 
-Contributions are welcome!
+**Contributions are welcome!**
+
 To contribute:
 
 Fork the repository
