@@ -56,4 +56,61 @@ git clone https://github.com/hand1ov1eternity/myFlix-client.git
 ```
 Navigate into the project directory:
 
+```bash
 cd myFlix-client
+```
+Install dependencies:
+
+```bash
+npm install
+```
+```bash
+npx parcel src/index.html
+```
+Open your browser at:
+
+```bash
+http://localhost:1234
+```
+
+🚧 ### Features in Development
+
+🔄 User profile and movie data are fetched from a backend API (movie-api-bqfe.onrender.com
+).
+
+✏️ Users can view, edit, and delete their profiles.
+
+🎯 Movies can be filtered by genre and other criteria.
+
+📖 ## API Documentation
+
+The app communicates with a REST API hosted at:
+
+```bash
+https://movie-api-bqfe.onrender.com
+```
+### The API supports operations like:
+
+User login & registration
+
+Fetching movie data
+
+Managing favorites
+
+Updating profiles
+
+🤝 ### Contributing
+
+Contributions are welcome!
+To contribute:
+
+Fork the repository
+
+Create a new branch for your feature/fix
+
+Make and test your changes
+
+Submit a pull request
+
+> Built with React, Bootstrap, and a love for movies 🎬🍿 — always a work in progress 🚧
+
