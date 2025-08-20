@@ -82,14 +82,14 @@ http://localhost:1234
 
 🎯 Movies can be filtered by genre and other criteria.
 
-📖 ## API Documentation
+📖 ##API Documentation
 
 The app communicates with a REST API hosted at:
 
 ```bash
 https://movie-api-bqfe.onrender.com
 ```
-### The API supports operations like:
+**The API supports operations like:**
 
 User login & registration
 
@@ -99,7 +99,7 @@ Managing favorites
 
 Updating profiles
 
-🤝 ### Contributing
+🤝 ###Contributing
 
 Contributions are welcome!
 To contribute:
