@@ -13,7 +13,7 @@ export const MainView = () => {
   const [user, setUser] = useState(null);
   const [token, setToken] = useState(null);
   const [selectedGenre, setSelectedGenre] = useState("");
-  const [searchQuery, setSearchQuery] = useState("");  // Add searchQuery state
+  const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
     if (!token) return;
@@ -22,9 +22,7 @@ export const MainView = () => {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then((response) => {
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
+        if (!response.ok) throw new Error("Network response was not ok");
         return response.json();
       })
       .then((data) => {
@@ -38,16 +36,11 @@ export const MainView = () => {
         }));
         setMovies(movies);
       })
-      .catch((error) => {
-        console.error("Fetch error:", error);
-      });
+      .catch((error) => console.error("Fetch error:", error));
   }, [token]);
 
-  const handleSearch = (query) => {
-    setSearchQuery(query); // Update the search query state
-  };
+  const handleSearch = (query) => setSearchQuery(query);
 
-  // Filter movies by genre and search query
   const filteredMovies = movies.filter((movie) => {
     const matchesGenre = selectedGenre ? movie.genre.name === selectedGenre : true;
     const matchesSearchQuery = movie.title.toLowerCase().includes(searchQuery.toLowerCase());
@@ -63,70 +56,81 @@ export const MainView = () => {
           setToken(null);
         }}
         setSelectedGenre={setSelectedGenre}
-        onSearch={handleSearch} // Pass the function
+        onSearch={handleSearch}
       />
-      <Row>
-        <Routes>
-          {!user ? (
-            <>
-              <Route
-                path="/Login"
-                element={
-                  <Col md={5}>
-                    <div className="form-container">
-                      <LoginView
-                        onLoggedIn={(user, token) => {
-                          setUser(user);
-                          setToken(token);
-                        }}
-                      />
-                    </div>
-                  </Col>
-                }
-              />
-              <Route path="/Signup" element={<SignupView />} />
-              <Route path="*" element={<Navigate to="/Login" />} />
-            </>
-          ) : (
-            <>
-              <Route
-                path="/movies"
-                element={
-                  filteredMovies.length === 0 ? (
-                    <div>No movies found for this genre or search query!</div>
-                  ) : (
-                    filteredMovies.map((movie) => (
-                      <Col className="mb-5" key={movie.id} md={3}>
+
+      <Routes>
+        {!user ? (
+          <>
+            {/* Centered login — no Row/Col here */}
+            <Route
+              path="/Login"
+              element={
+                <div className="d-flex justify-content-center align-items-center min-vh-100 px-3">
+                  <div className="w-100" style={{ maxWidth: 420 }}>
+                    <LoginView
+                      onLoggedIn={(user, token) => {
+                        setUser(user);
+                        setToken(token);
+                      }}
+                    />
+                  </div>
+                </div>
+              }
+            />
+            <Route
+              path="/Signup"
+              element={
+                <div className="d-flex justify-content-center align-items-center min-vh-100 px-3">
+                  <div className="w-100" style={{ maxWidth: 480 }}>
+                    <SignupView />
+                  </div>
+                </div>
+              }
+            />
+            <Route path="*" element={<Navigate to="/Login" />} />
+          </>
+        ) : (
+          <>
+            <Route
+              path="/movies"
+              element={
+                filteredMovies.length === 0 ? (
+                  <div className="text-center py-5">No movies found for this genre or search query!</div>
+                ) : (
+                  <Row className="g-4 px-3 py-4">
+                    {filteredMovies.map((movie) => (
+                      <Col className="mb-0" key={movie.id} xs={12} sm={6} md={4} lg={3}>
                         <MovieCard movie={movie} />
                       </Col>
-                    ))
-                  )
-                }
-              />
-              <Route
-                path="/movies/:movieId"
-                element={<MovieView movies={movies} user={user} token={token} onUserUpdated={setUser} />}
-              />
-              <Route
-                path="/profile"
-                element={
-                  <ProfileView
-                    user={user}
-                    token={token}
-                    movies={movies}
-                    onUserUpdated={(updatedUser) => setUser(updatedUser)}
-                    onUserDeleted={() => {
-                      setUser(null);
-                      setToken(null);
-                    }}
-                  />
-                }
-              />
-              <Route path="*" element={<Navigate to="/movies" />} />
-            </>
-          )}
-        </Routes>
-      </Row>
+                    ))}
+                  </Row>
+                )
+              }
+            />
+            <Route
+              path="/movies/:movieId"
+              element={<MovieView movies={movies} user={user} token={token} onUserUpdated={setUser} />}
+            />
+            <Route
+              path="/profile"
+              element={
+                <ProfileView
+                  user={user}
+                  token={token}
+                  movies={movies}
+                  onUserUpdated={(updatedUser) => setUser(updatedUser)}
+                  onUserDeleted={() => {
+                    setUser(null);
+                    setToken(null);
+                  }}
+                />
+              }
+            />
+            <Route path="*" element={<Navigate to="/movies" />} />
+          </>
+        )}
+      </Routes>
     </BrowserRouter>
   );
 };
