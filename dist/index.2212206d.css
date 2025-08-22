@@ -62,8 +62,52 @@
   padding-left: 20px;
 }
 
-.navigation-bar-container {
-  padding-left: 5px;
+.nav-fun {
+  z-index: 1030;
+  background: linear-gradient(90deg, #0f172a, #111827);
+  position: sticky;
+  top: 0;
+  box-shadow: 0 8px 24px #0206173d;
+}
+
+.brand-fun {
+  letter-spacing: .3px;
+  -webkit-text-fill-color: transparent;
+  background: linear-gradient(45deg, #ff47a3, #fbbf24);
+  -webkit-background-clip: text;
+  font-weight: 800;
+}
+
+.link-underline {
+  opacity: .95;
+  font-weight: 600;
+  position: relative;
+}
+
+.link-underline:after {
+  content: "";
+  transform-origin: 100%;
+  background: currentColor;
+  height: 2px;
+  transition: transform .25s;
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  right: 0;
+  transform: scaleX(0);
+}
+
+.link-underline:hover:after, .link-underline.active:after {
+  transform-origin: 0;
+  transform: scaleX(1);
+}
+
+.fun-pill {
+  border-radius: 999px !important;
+}
+
+.form-control.fun-pill {
+  padding-inline: 1rem;
 }
 
 :root, [data-bs-theme="light"] {
@@ -13278,8 +13322,183 @@ body {
   box-shadow: 0 10px 25px #02061714;
 }
 
+.auth-title {
+  letter-spacing: .5px;
+  font-family: Paytone One, system-ui, sans-serif;
+}
+
+.auth-hero {
+  place-items: center;
+  min-height: 100vh;
+  padding: 2rem;
+  display: grid;
+  position: relative;
+  overflow: hidden;
+}
+
+.auth-hero:before, .auth-hero:after {
+  content: "";
+  filter: blur(.5px);
+  z-index: -2;
+  background: radial-gradient(40rem 30rem at 10% -10%, #8b5cf62e, #0000), radial-gradient(35rem 25rem at 110% -10%, #3abff829, #0000), radial-gradient(30rem 30rem at 50% 120%, #ff47a31f, #0000);
+  position: absolute;
+  inset: -20%;
+}
+
+.blob {
+  opacity: .25;
+  filter: blur(20px);
+  z-index: -1;
+  border-radius: 50%;
+  width: 30vmin;
+  height: 30vmin;
+  animation: 10s ease-in-out infinite floaty;
+  position: absolute;
+}
+
+.blob.b1 {
+  background: linear-gradient(135deg, #ff47a3, #fbbf24);
+  animation-delay: .2s;
+  top: 5%;
+  left: -5%;
+}
+
+.blob.b2 {
+  background: linear-gradient(135deg, #3abff8, #8b5cf6);
+  animation-delay: .6s;
+  bottom: -10%;
+  right: -5%;
+}
+
+.blob.b3 {
+  background: linear-gradient(135deg, #fbbf24, #3abff8);
+  width: 22vmin;
+  height: 22vmin;
+  animation-delay: 1.2s;
+  top: 40%;
+  right: 15%;
+}
+
+@keyframes floaty {
+  0%, 100% {
+    transform: translateY(0)translateX(0)rotate(0);
+  }
+
+  50% {
+    transform: translateY(-12px)translateX(6px)rotate(5deg);
+  }
+}
+
+.card.sticker {
+  border: 1px solid #02061714;
+  border-radius: 24px;
+  position: relative;
+  box-shadow: 0 20px 40px #0206171a, inset 0 1px #fff9;
+}
+
+.card.sticker:before, .card.sticker:after {
+  content: "";
+  background: repeating-linear-gradient(45deg, #fffc 0 8px, #0000000d 8px 16px);
+  border-radius: 4px;
+  width: 56px;
+  height: 14px;
+  position: absolute;
+  top: -10px;
+  transform: rotate(-3deg);
+}
+
+.card.sticker:before {
+  left: 18px;
+}
+
+.card.sticker:after {
+  right: 18px;
+  transform: rotate(3deg);
+}
+
+.btn-primary {
+  font-weight: 700;
+  position: relative;
+  transform: translateZ(0);
+}
+
+.btn-primary:hover {
+  transform: translateY(-1px);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+.btn-primary:after {
+  content: "";
+  z-index: -1;
+  background: radial-gradient(60% 100% at 50% 0, #8b5cf673, #0000 70%);
+  border-radius: 999px;
+  position: absolute;
+  inset: -2px;
+}
+
+.form-label {
+  font-weight: 600;
+}
+
+.form-control {
+  border-radius: 999px;
+  padding-inline: 1.1rem;
+}
+
+.navbar {
+  background: linear-gradient(90deg, #0f172a, #111827);
+  box-shadow: 0 6px 18px #02061738;
+}
+
+.navbar .navbar-brand {
+  letter-spacing: .2px;
+  -webkit-text-fill-color: transparent;
+  background: linear-gradient(45deg, #ff47a3, #fbbf24);
+  -webkit-background-clip: text;
+  font-weight: 800;
+}
+
+.navbar .nav-link {
+  opacity: .9;
+  font-weight: 600;
+  position: relative;
+}
+
+.navbar .nav-link:after {
+  content: "";
+  transform-origin: 100%;
+  background: currentColor;
+  height: 2px;
+  transition: transform .25s;
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  right: 0;
+  transform: scaleX(0);
+}
+
+.navbar .nav-link:hover:after, .navbar .nav-link.active:after {
+  transform-origin: 0;
+  transform: scaleX(1);
+}
+
+.navbar .btn-outline-light, .navbar .btn-outline-secondary {
+  backdrop-filter: blur(6px);
+  background-color: #ffffff0f;
+  border-color: #ffffff26;
+  border-radius: 999px;
+}
+
 html, body, #root {
   height: 100%;
   margin: 0;
+}
+
+.auth-hero {
+  width: 100%;
+  min-height: 100vh;
 }
 /*# sourceMappingURL=index.2212206d.css.map */

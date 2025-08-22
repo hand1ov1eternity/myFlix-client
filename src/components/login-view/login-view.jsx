@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { Form, Button, Card } from "react-bootstrap";
+import { popConfetti } from "../../utils/confetti";
+
 
 export const LoginView = ({ onLoggedIn }) => {
   const [username, setUsername] = useState("");
@@ -14,19 +16,23 @@ export const LoginView = ({ onLoggedIn }) => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
     })
-      .then((r) => r.json())
-      .then((data) => {
-        if (data.user) {
-          const user = { ...data.user, FavoriteMovies: data.user.FavoriteMovies || [] };
-          localStorage.setItem("user", JSON.stringify(user));
-          localStorage.setItem("token", data.token);
-          fetchUserProfile(data.user.username, data.token);
-        } else {
-          alert(data.message || "No such user or incorrect password");
-        }
-      })
-      .catch(() => alert("Something went wrong"));
-  };
+    .then((r) => r.json())
+    .then((data) => {
+      if (data.user) {
+        popConfetti(); // <= celebration!
+        const user = { ...data.user, FavoriteMovies: data.user.FavoriteMovies || [] };
+        localStorage.setItem("user", JSON.stringify(user));
+        localStorage.setItem("token", data.token);
+        fetchUserProfile(data.user.username, data.token);
+      } else {
+        alert(data.message || "No such user or incorrect password");
+      }
+    })
+    .catch((error) => {
+      console.error(error);
+      alert("Something went wrong");
+    });
+};
 
   const fetchUserProfile = (username, token) => {
     fetch(`https://movie-api-bqfe.onrender.com/users/${username}`, {
@@ -38,13 +44,16 @@ export const LoginView = ({ onLoggedIn }) => {
   };
 
   return (
-    <div
-      className="d-flex align-items-center justify-content-center"
-      style={{ minHeight: "100vh", padding: "2rem" }}
-    >
-      <Card className="form-container w-100" style={{ maxWidth: 420 }}>
-        <Card.Body>
-          <h1 className="h4 mb-4 text-center m-0">Login</h1>
+  <div className="auth-hero">
+    {/* decorative blobs */}
+    <span className="blob b1"></span>
+    <span className="blob b2"></span>
+    <span className="blob b3"></span>
+
+    <div className="w-100" style={{ maxWidth: 420 }}>
+      <div className="card sticker form-container">
+        <div className="card-body">
+          <h1 className="auth-title h3 mb-4 text-center">Login</h1>
 
           <Form onSubmit={handleSubmit}>
             <Form.Group controlId="formUsername" className="mb-3">
@@ -72,8 +81,9 @@ export const LoginView = ({ onLoggedIn }) => {
               <Button variant="primary" type="submit">Submit</Button>
             </div>
           </Form>
-        </Card.Body>
-      </Card>
+        </div>
+      </div>
     </div>
-  );
+  </div>
+ );
 };

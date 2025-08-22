@@ -1,87 +1,87 @@
 import { useState } from "react";
-import { Nav, Navbar, Form, FormControl, Button } from "react-bootstrap";
+import { Nav, Navbar, Form, FormControl, Button, Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import "./navigation-bar.scss"; // Import the SCSS file
+import "./navigation-bar.scss";
 
 export const NavigationBar = ({ user, onLoggedOut, setSelectedGenre, onSearch }) => {
   const [selectedOption, setSelectedOption] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
 
   const handleGenreChange = (event) => {
-    setSelectedOption(event.target.value);
-    setSelectedGenre(event.target.value); // Pass the selected genre to the parent (MainView)
-  };
-
-  const handleSearchChange = (event) => {
-    setSearchQuery(event.target.value);
+    const val = event.target.value;
+    setSelectedOption(val);
+    setSelectedGenre?.(val);
   };
 
   const handleSearchSubmit = (event) => {
     event.preventDefault();
-    if (onSearch) {
-      onSearch(searchQuery); // Pass the search query to the parent (MainView)
-    } else {
-      console.error("onSearch function is missing!");
-    }
+    onSearch?.(searchQuery);
   };
 
   return (
-    <div className="navigation-bar-container"> {/* Wrapper for SCSS styling */}
-      <Navbar bg="dark" variant="dark" expand="lg">
-        <Navbar.Brand href="/movies">MyFlix</Navbar.Brand>
-        <Nav className="ml-auto">
-          {/* If user is logged in */}
-          {user ? (
-            <>
-              {/* Home link */}
-              <Nav.Link as={Link} to="/movies">Home</Nav.Link>
+    <Navbar expand="lg" className="nav-fun px-3 py-2" variant="dark">
+      <Container fluid className="gap-2">
+        {/* Brand */}
+        <Navbar.Brand as={Link} to={user ? "/movies" : "/login"} className="brand-fun">
+          myFlix
+        </Navbar.Brand>
 
-              {/* Profile link */}
-              <Nav.Link as={Link} to="/profile">Profile</Nav.Link>
+        <Navbar.Toggle aria-controls="main-nav" />
 
-              {/* Logout button */}
-              <Nav.Link onClick={onLoggedOut}>Logout</Nav.Link>
+        <Navbar.Collapse id="main-nav">
+          <Nav className="ms-auto align-items-center gap-2">
 
-              {/* Genre Dropdown */}
-              <div className="genre-dropdown" style={{ marginRight: "15px" }}>
-                <select
-                  id="genre-select"
-                  value={selectedOption} // Set the value to the selected genre
-                  onChange={handleGenreChange} // Call handleGenreChange on change
-                  className="form-select"
-                >
-                  <option value="">All Genres</option>
-                  <option value="Action">Action</option>
-                  <option value="Crime">Crime</option>
-                  <option value="Comedy">Comedy</option>
-                  <option value="Historical Drama">Historical Drama</option>
-                  <option value="Horror">Horror</option>
-                  <option value="Sci-Fi">Sci-fi</option>
-                  {/* Add more genres as needed */}
-                </select>
-              </div>
+            {user ? (
+              <>
+                {/* Primary links */}
+                <Nav.Link as={Link} to="/movies" className="link-underline">Home</Nav.Link>
+                <Nav.Link as={Link} to="/profile" className="link-underline">Profile</Nav.Link>
+                <Nav.Link onClick={onLoggedOut} className="link-underline">Logout</Nav.Link>
 
-              {/* Search Field */}
-              <Form inline onSubmit={handleSearchSubmit}>
-                <FormControl
-                  type="text"
-                  placeholder="Search Movies"
-                  className="mr-sm-2"
-                  value={searchQuery}
-                  onChange={handleSearchChange}
-                />
-                <Button type="submit" variant="outline-success">Search</Button>
-              </Form>
-            </>
-          ) : (
-            <>
-              {/* Sign In and Sign Up links */}
-              <Nav.Link as={Link} to="/login">Sign In</Nav.Link>
-              <Nav.Link as={Link} to="/signup">Sign Up</Nav.Link>
-            </>
-          )}
-        </Nav>
-      </Navbar>
-    </div>
+                {/* Genre select */}
+                <Form className="d-flex align-items-center">
+                  <select
+                    id="genre-select"
+                    value={selectedOption}
+                    onChange={handleGenreChange}
+                    className="form-select form-select-sm fun-pill me-2"
+                    aria-label="Filter by genre"
+                  >
+                    <option value="">All Genres</option>
+                    <option value="Action">Action</option>
+                    <option value="Crime">Crime</option>
+                    <option value="Comedy">Comedy</option>
+                    <option value="Historical Drama">Historical Drama</option>
+                    <option value="Horror">Horror</option>
+                    <option value="Sci-Fi">Sci-fi</option>
+                  </select>
+                </Form>
+
+                {/* Search */}
+                <Form onSubmit={handleSearchSubmit} className="d-flex">
+                  <FormControl
+                    type="search"
+                    placeholder="Search movies"
+                    className="me-2 fun-pill"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    aria-label="Search movies"
+                  />
+                  <Button type="submit" variant="light" className="fun-pill px-3">
+                    Search
+                  </Button>
+                </Form>
+              </>
+            ) : (
+              <>
+                <Nav.Link as={Link} to="/login" className="link-underline">Sign In</Nav.Link>
+                <Nav.Link as={Link} to="/signup" className="link-underline">Sign Up</Nav.Link>
+              </>
+            )}
+
+          </Nav>
+        </Navbar.Collapse>
+      </Container>
+    </Navbar>
   );
 };
