@@ -13390,10 +13390,63 @@ body {
 }
 
 .card.sticker {
+  backdrop-filter: blur(4px);
+  background: #ffffffeb;
   border: 1px solid #02061714;
   border-radius: 24px;
+  transition: box-shadow .3s, transform .3s;
   position: relative;
-  box-shadow: 0 20px 40px #0206171a, inset 0 1px #fff9;
+  box-shadow: 0 0 20px #8b5cf633, 0 0 40px #3abff826, 0 0 60px #02061733;
+}
+
+.card.sticker:hover {
+  transform: translateY(-3px)scale(1.01);
+  box-shadow: 0 0 25px #8b5cf64d, 0 0 50px #3abff833, 0 0 70px #0206174d;
+}
+
+.card.movie-card {
+  transition: transform .2s, box-shadow .2s, filter .2s;
+}
+
+@keyframes vhs-glitch-soft {
+  0%, 100% {
+    filter: none;
+    transform: none;
+  }
+
+  20% {
+    filter: contrast(1.05) saturate(1.1);
+    transform: translateX(-1px);
+  }
+
+  40% {
+    filter: contrast(1.1) saturate(1.2) drop-shadow(-1px 0 #ff47a3) drop-shadow(1px 0 #3abff8);
+    transform: translateX(1px);
+  }
+
+  60% {
+    filter: contrast(1.05) saturate(1.1);
+    transform: translateX(-.5px);
+  }
+
+  80% {
+    filter: none;
+    transform: translateX(.5px);
+  }
+}
+
+.card.movie-card img {
+  transition: transform .2s;
+}
+
+.card.movie-card:hover img {
+  animation: .6s ease-in-out vhs-glitch-soft;
+}
+
+.card.movie-card:hover {
+  filter: brightness(1.05) contrast(1.1) saturate(1.2);
+  transform: translateY(-4px)scale(1.02);
+  box-shadow: 0 0 20px #8b5cf64d, 0 0 40px #3abff840;
 }
 
 .card.sticker:before, .card.sticker:after {
@@ -13449,13 +13502,16 @@ body {
 }
 
 .navbar {
-  background: linear-gradient(90deg, #0f172a, #111827);
-  box-shadow: 0 6px 18px #02061738;
+  backdrop-filter: blur(8px);
+  background: #0f172abf;
+  border-bottom: 1px solid #ffffff14;
+  box-shadow: 0 8px 24px #0006;
 }
 
 .navbar .navbar-brand {
   letter-spacing: .2px;
   -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 6px #ff47a399;
   background: linear-gradient(45deg, #ff47a3, #fbbf24);
   -webkit-background-clip: text;
   font-weight: 800;
@@ -13464,7 +13520,12 @@ body {
 .navbar .nav-link {
   opacity: .9;
   font-weight: 600;
+  transition: color .2s;
   position: relative;
+}
+
+.navbar .nav-link:hover {
+  color: #fbbf24;
 }
 
 .navbar .nav-link:after {
@@ -13500,5 +13561,46 @@ html, body, #root {
 .auth-hero {
   width: 100%;
   min-height: 100vh;
+}
+
+.auth-hero:after {
+  content: "";
+  mix-blend-mode: multiply;
+  pointer-events: none;
+  z-index: -1;
+  opacity: .4;
+  background: repeating-linear-gradient(#00000014 0 1px, #0000 2px 4px);
+  position: absolute;
+  inset: 0;
+}
+
+@keyframes vhs-flicker {
+  0%, 100% {
+    opacity: .4;
+  }
+
+  45% {
+    opacity: .45;
+  }
+
+  48% {
+    opacity: .3;
+  }
+
+  50% {
+    opacity: .5;
+  }
+
+  52% {
+    opacity: .35;
+  }
+
+  60% {
+    opacity: .42;
+  }
+}
+
+.auth-hero:after {
+  animation: 1.8s step-end infinite vhs-flicker;
 }
 /*# sourceMappingURL=index.2212206d.css.map */

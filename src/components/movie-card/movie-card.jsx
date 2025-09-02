@@ -4,24 +4,20 @@ import { Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 export const MovieCard = ({ movie }) => {
- 
   return (
-    <Card className="h-100">
-      
+    // ✅ Added "movie-card" class
+    <Card className="h-100 movie-card">
       <Card.Img variant="top" src={movie.imageURL} />
       <Card.Body>
         <Card.Title>{movie.title}</Card.Title>
         <Card.Subtitle className="mb-2 text-muted">{movie.genre.name}</Card.Subtitle>
-        <Card.Text>{movie.description}</Card.Text>
+        <Card.Text className="textClamp-3">{movie.description}</Card.Text>
         <Card.Footer>
           <small className="text-muted">{movie.director.name}</small>
         </Card.Footer>
-        {/* Link replaces the button*/ }
         <Link to={`/movies/${movie.id}`} className="btn btn-link">
           Open
         </Link>
-        
-        
       </Card.Body>
     </Card>
   );

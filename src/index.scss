@@ -140,6 +140,71 @@ $fun-yellow: #fbbf24;
   position: relative;
 }
 
+/* Glowing screen look for auth forms */
+.card.sticker {
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(4px);
+  box-shadow:
+    0 0 20px rgba(139, 92, 246, 0.2),
+    0 0 40px rgba(58, 191, 248, 0.15),
+    0 0 60px rgba(2, 6, 23, 0.2);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.card.sticker:hover {
+  transform: translateY(-3px) scale(1.01);
+  box-shadow:
+    0 0 25px rgba(139, 92, 246, 0.3),
+    0 0 50px rgba(58, 191, 248, 0.2),
+    0 0 70px rgba(2, 6, 23, 0.3);
+}
+
+/* VHS hover for movie cards */
+.card.movie-card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+}
+
+/* Smooth VHS poster glitch */
+@keyframes vhs-glitch-soft {
+  0%, 100% {
+    transform: none;
+    filter: none;
+  }
+  20% {
+    transform: translateX(-1px);
+    filter: contrast(1.05) saturate(1.1);
+  }
+  40% {
+    transform: translateX(1px);
+    filter: contrast(1.1) saturate(1.2) drop-shadow(-1px 0 #ff47a3) drop-shadow(1px 0 #3abff8);
+  }
+  60% {
+    transform: translateX(-0.5px);
+    filter: contrast(1.05) saturate(1.1);
+  }
+  80% {
+    transform: translateX(0.5px);
+    filter: none;
+  }
+}
+
+.card.movie-card img {
+  transition: transform 0.2s ease;
+}
+
+.card.movie-card:hover img {
+  animation: vhs-glitch-soft 0.6s ease-in-out;
+}
+
+
+.card.movie-card:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 0 20px rgba(139, 92, 246, 0.3), 0 0 40px rgba(58, 191, 248, 0.25);
+  filter: brightness(1.05) contrast(1.1) saturate(1.2);
+}
+
+
+
 /* Little “tape” corners */
 .card.sticker::before,
 .card.sticker::after {
@@ -177,10 +242,12 @@ $fun-yellow: #fbbf24;
   padding-inline: 1.1rem;
 }
 
-/* ==== Fun Navbar ==== */
+/* ==== Neon Navbar ==== */
 .navbar {
-  background: linear-gradient(90deg, #0f172a, #111827); /* subtle dark gradient base */
-  box-shadow: 0 6px 18px rgba(2,6,23,.22);
+  background: rgba(15, 23, 42, 0.75); /* translucent dark */
+  backdrop-filter: blur(8px); /* glassy effect */
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .navbar .navbar-brand {
@@ -189,12 +256,18 @@ $fun-yellow: #fbbf24;
   background: linear-gradient(45deg, #ff47a3, #fbbf24);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 6px rgba(255, 71, 163, 0.6);
 }
 
 .navbar .nav-link {
   position: relative;
   font-weight: 600;
   opacity: .9;
+  transition: color 0.2s ease;
+}
+
+.navbar .nav-link:hover {
+  color: #fbbf24;
 }
 
 .navbar .nav-link::after {
@@ -207,6 +280,7 @@ $fun-yellow: #fbbf24;
   transform-origin: right;
   transition: transform .25s ease;
 }
+
 .navbar .nav-link:hover::after,
 .navbar .nav-link.active::after {
   transform: scaleX(1);
@@ -224,3 +298,36 @@ $fun-yellow: #fbbf24;
 
 html, body, #root { height: 100%; margin: 0; }
 .auth-hero { min-height: 100vh; width: 100%; }
+
+/* === VHS Scanline Overlay for auth pages === */
+.auth-hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    repeating-linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.08) 0px,
+      rgba(0, 0, 0, 0.08) 1px,
+      transparent 2px,
+      transparent 4px
+    );
+  mix-blend-mode: multiply;
+  pointer-events: none;
+  z-index: -1; /* sits above blobs but below form */
+  opacity: 0.4;
+}
+
+/* VHS flicker effect */
+@keyframes vhs-flicker {
+  0%, 100% { opacity: 0.4; }
+  45% { opacity: 0.45; }
+  48% { opacity: 0.3; }
+  50% { opacity: 0.5; }
+  52% { opacity: 0.35; }
+  60% { opacity: 0.42; }
+}
+
+.auth-hero::after {
+  animation: vhs-flicker 1.8s infinite steps(1);
+}
