@@ -13603,4 +13603,125 @@ html, body, #root {
 .auth-hero:after {
   animation: 1.8s step-end infinite vhs-flicker;
 }
+
+.auth-hero:before {
+  content: "";
+  opacity: .15;
+  mix-blend-mode: overlay;
+  pointer-events: none;
+  z-index: -1;
+  background-image: url("data:image/svg+xml;utf8,  <svg xmlns='http://www.w3.org/2000/svg' width='200' height='200' fill='black'>    <filter id='noiseFilter'>      <feTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/>    </filter>    <rect width='100%' height='100%' filter='url(%23noiseFilter)' opacity='0.15'/>  </svg>");
+  background-size: cover;
+  animation: 1.5s steps(4, end) infinite noiseMove;
+  position: absolute;
+  inset: 0;
+}
+
+@keyframes noiseMove {
+  0% {
+    transform: translate(0);
+  }
+
+  25% {
+    transform: translate(-2%, 1%);
+  }
+
+  50% {
+    transform: translate(1%, -1%);
+  }
+
+  75% {
+    transform: translate(-1%, 2%);
+  }
+
+  100% {
+    transform: translate(0);
+  }
+}
+
+.poster-wrap {
+  border-radius: 14px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: inset 0 0 0 1px #ffffff0f, 0 10px 24px #0206172e;
+}
+
+.poster-wrap img {
+  width: 100%;
+  height: auto;
+  transition: transform .25s, filter .25s;
+  display: block;
+}
+
+.poster-wrap:before {
+  content: "";
+  pointer-events: none;
+  background: linear-gradient(#ffffff14, #0000 60%);
+  position: absolute;
+  inset: 0;
+}
+
+.poster-wrap:after {
+  content: "";
+  opacity: 0;
+  pointer-events: none;
+  background: radial-gradient(40% 30% at 50% 10%, #ffffff0f, #0000 60%), linear-gradient(#0000 70%, #8b5cf61a);
+  transition: opacity .25s;
+  position: absolute;
+  inset: 0;
+}
+
+.card.movie-card:hover .poster-wrap:after {
+  opacity: 1;
+}
+
+.card.movie-card:hover .poster-wrap img {
+  filter: contrast(1.05) saturate(1.05);
+  transform: scale(1.02);
+}
+
+.genre-chip {
+  color: #fff;
+  letter-spacing: .5px;
+  background: linear-gradient(135deg, #ff47a3, #8b5cf6);
+  border-radius: 999px;
+  margin-bottom: .5rem;
+  padding: .2rem .75rem;
+  font-size: .75rem;
+  font-weight: 600;
+  display: inline-block;
+  box-shadow: 0 0 6px #8b5cf699;
+}
+
+.btn-link {
+  all: unset;
+  cursor: pointer;
+  text-transform: uppercase;
+  color: #ff47a3;
+  border-radius: 8px;
+  padding: .25rem .75rem;
+  font-weight: 700;
+  transition: transform .15s, box-shadow .15s;
+  display: inline-block;
+  position: relative;
+}
+
+.btn-link:after {
+  content: "";
+  opacity: 0;
+  background: #ff47a326;
+  border-radius: 8px;
+  transition: opacity .2s;
+  position: absolute;
+  inset: 0;
+}
+
+.btn-link:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px #ff47a34d;
+}
+
+.btn-link:hover:after {
+  opacity: 1;
+}
 /*# sourceMappingURL=index.2212206d.css.map */

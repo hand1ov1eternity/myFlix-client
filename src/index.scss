@@ -331,3 +331,128 @@ html, body, #root { height: 100%; margin: 0; }
 .auth-hero::after {
   animation: vhs-flicker 1.8s infinite steps(1);
 }
+
+/* === Subtle film grain / noise effect === */
+.auth-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml;utf8,\
+  <svg xmlns='http://www.w3.org/2000/svg' width='200' height='200' fill='black'>\
+    <filter id='noiseFilter'>\
+      <feTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/>\
+    </filter>\
+    <rect width='100%' height='100%' filter='url(%23noiseFilter)' opacity='0.15'/>\
+  </svg>");
+  background-size: cover;
+  opacity: 0.15;
+  mix-blend-mode: overlay;
+  pointer-events: none;
+  animation: noiseMove 1.5s steps(4) infinite;
+  z-index: -1;
+}
+
+@keyframes noiseMove {
+  0% { transform: translate(0, 0); }
+  25% { transform: translate(-2%, 1%); }
+  50% { transform: translate(1%, -1%); }
+  75% { transform: translate(-1%, 2%); }
+  100% { transform: translate(0, 0); }
+}
+
+/* === CRT frame + hover overlay for posters === */
+.poster-wrap {
+  position: relative;
+  overflow: hidden;
+  border-radius: 14px;
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,0.06) inset,
+    0 10px 24px rgba(2,6,23,0.18);
+}
+
+.poster-wrap img {
+  display: block;
+  width: 100%;
+  height: auto;
+  transition: transform .25s ease, filter .25s ease;
+}
+
+/* subtle glass reflection */
+.poster-wrap::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(255,255,255,.08), transparent 60%);
+  pointer-events: none;
+}
+
+/* faint overlay on hover */
+.poster-wrap::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(40% 30% at 50% 10%, rgba(255,255,255,.06), transparent 60%),
+    linear-gradient(180deg, transparent 70%, rgba(139,92,246,.10));
+  opacity: 0;
+  transition: opacity .25s ease;
+  pointer-events: none;
+}
+
+.card.movie-card:hover .poster-wrap::after {
+  opacity: 1;
+}
+
+/* gentle zoom on hover (pairs with your vhs-glitch-soft) */
+.card.movie-card:hover .poster-wrap img {
+  transform: scale(1.02);
+  filter: contrast(1.05) saturate(1.05);
+}
+
+/* === Neon genre chip === */
+.genre-chip {
+  display: inline-block;
+  padding: 0.2rem 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #fff;
+  background: linear-gradient(135deg, #ff47a3, #8b5cf6);
+  border-radius: 999px;
+  box-shadow: 0 0 6px rgba(139, 92, 246, 0.6);
+  margin-bottom: 0.5rem;
+  letter-spacing: 0.5px;
+}
+
+/* === Fun 'Open' button style === */
+.btn-link {
+  all: unset; /* reset Bootstrap/Browser styles */
+  display: inline-block;
+  cursor: pointer;
+
+  font-weight: 700;
+  text-transform: uppercase;
+  color: $fun-pink;
+  padding: 0.25rem 0.75rem;
+  border-radius: 8px;
+  position: relative;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 8px;
+    background: rgba($fun-pink, 0.15);
+    opacity: 0;
+    transition: opacity 0.2s ease;
+  }
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba($fun-pink, 0.3);
+  }
+
+  &:hover::after {
+    opacity: 1;
+  }
+}
