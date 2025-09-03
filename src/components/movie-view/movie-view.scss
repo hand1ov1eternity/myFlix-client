@@ -1,58 +1,142 @@
-.movie-view {
-  padding: 20px;
-  margin-left: 20px;
+.movie-detail-hero {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 60px);
+  padding: 2rem;
+  background: radial-gradient(circle at 50% 20%, rgba(0,0,0,0.6), rgba(0,0,0,0.85) 80%);
 }
 
-.movie-image {
-  max-width: 30%; // Adjust the size as needed
-  height: auto;
+.movie-detail-card {
+  display: flex;
+  gap: 2rem;
+  max-width: 900px;
+  width: 100%;
+  background: rgba(15, 23, 42, 0.85);
+  border-radius: 1rem;
+  padding: 2rem;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(8px);
+  animation: fadeIn 0.4s ease;
+}
+
+.poster-side {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.poster-side img {
+  max-width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+  margin-bottom: 1rem;
+  transition: transform 0.2s ease;
+}
+
+.poster-side img:hover {
+  transform: scale(1.02);
+}
+
+.poster-wrapper {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+
+.poster-wrapper img {
   display: block;
-  margin-bottom: 20px; // Add space below the image
-}
-
-.movie-view div {
-  margin-bottom: 15px; // Add space between each line of text
-}
-
-.movie-view span:first-child {
-  font-weight: bold;
-  font-size: 1.2rem; // Adjust font size for labels
-}
-
-.movie-view span:not(:first-child) {
-  font-size: 1.1rem; // Adjust font size for the content
-}
-
-.back-button {
-  padding: 6px 15px;
-  color: whitesmoke;
-  background-color: dodgerblue;
-  border: none;
-  border-radius: 4px;
-  text-decoration: none;
-  font-weight: bold;
-  font-size: 1rem;
+  width: 100%;
+  border-radius: 12px;
 }
 
 .heart-btn {
-  background-color: transparent;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 50%;
+  padding: 0.4rem;
   border: none;
-  color: #ff4b5c;
-  font-size: 2rem;
-  padding: 0.5rem;
+  color: #ff47a3;
+  font-size: 1.8rem;
   cursor: pointer;
-  transition: color 0.3s, transform 0.2s ease-in-out;
+  transition: transform 0.2s ease, color 0.2s ease, background 0.2s ease;
 
   &:hover {
-    color: #ff6f70;
-    transform: scale(1.2);
-  }
-
-  &:focus {
-    outline: none;
+    transform: scale(1.1);
+    color: #ff6f91;
+    background: rgba(0, 0, 0, 0.7);
   }
 
   &.favorite {
-    color: red;
+    color: #ff1f4b;
+    text-shadow: 0 0 8px rgba(255, 31, 75, 0.8);
   }
+}
+
+.info-side {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: #e5e7eb;
+}
+
+.info-side .title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.info-side .description {
+  margin: 1rem 0;
+  line-height: 1.6;
+  font-size: 1rem;
+}
+
+.info-side .director {
+  font-size: 0.9rem;
+  opacity: 0.85;
+}
+
+.back-button {
+  margin-top: 1rem;
+  align-self: flex-start;
+  background: linear-gradient(135deg, #ff47a3, #8b5cf6);
+  color: white;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  border-radius: 999px;
+  font-weight: 600;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 16px rgba(139, 92, 246, 0.5);
+  }
+}
+
+.heart-btn {
+  background: none;
+  border: none;
+  color: #ff47a3;
+  font-size: 2rem;
+  transition: transform 0.2s ease, color 0.2s ease;
+
+  &:hover {
+    transform: scale(1.1);
+    color: #ff6f91;
+  }
+
+  &.favorite {
+    color: #ff1f4b;
+    text-shadow: 0 0 8px rgba(255, 31, 75, 0.7);
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
 }

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Nav, Navbar, Form, FormControl, Button, Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import "./navigation-bar.scss";
+import jasonFavicon from "../../public/fridaythe13th_favicon.png";
 
 export const NavigationBar = ({ user, onLoggedOut, setSelectedGenre, onSearch }) => {
   const [selectedOption, setSelectedOption] = useState("");
@@ -22,9 +23,18 @@ export const NavigationBar = ({ user, onLoggedOut, setSelectedGenre, onSearch })
     <Navbar expand="lg" className="nav-fun px-3 py-2" variant="dark">
       <Container fluid className="gap-2">
         {/* Brand */}
-        <Navbar.Brand as={Link} to={user ? "/movies" : "/login"} className="brand-fun">
-          myFlix
-        </Navbar.Brand>
+        <Navbar.Brand as={Link} to={user ? "/movies" : "/login"} className="brand-fun d-flex align-items-center gap-2">
+        {/* favicon as brand mark */}
+        <img
+          src={jasonFavicon}
+          alt="myFlix"
+          className="brand-mark"
+          width="22"
+          height="22"
+        />
+
+      <span>myFlix</span>
+     </Navbar.Brand>
 
         <Navbar.Toggle aria-controls="main-nav" />
 

@@ -1,65 +1,194 @@
-.movie-view {
-  margin-left: 20px;
-  padding: 20px;
+.movie-detail-hero {
+  background: radial-gradient(circle at 50% 20%, #0009, #000000d9 80%);
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 60px);
+  padding: 2rem;
+  display: flex;
 }
 
-.movie-image {
-  max-width: 30%;
-  height: auto;
-  margin-bottom: 20px;
+.movie-detail-card {
+  backdrop-filter: blur(8px);
+  background: #0f172ad9;
+  border-radius: 1rem;
+  gap: 2rem;
+  width: 100%;
+  max-width: 900px;
+  padding: 2rem;
+  animation: .4s fadeIn;
+  display: flex;
+  box-shadow: 0 12px 40px #0009;
+}
+
+.poster-side {
+  flex-direction: column;
+  flex: 1;
+  align-items: center;
+  display: flex;
+}
+
+.poster-side img {
+  border-radius: 12px;
+  max-width: 100%;
+  margin-bottom: 1rem;
+  transition: transform .2s;
+  box-shadow: 0 8px 30px #00000080;
+}
+
+.poster-side img:hover {
+  transform: scale(1.02);
+}
+
+.poster-wrapper {
+  width: 100%;
+  display: inline-block;
+  position: relative;
+}
+
+.poster-wrapper img {
+  border-radius: 12px;
+  width: 100%;
   display: block;
 }
 
-.movie-view div {
-  margin-bottom: 15px;
-}
-
-.movie-view span:first-child {
-  font-size: 1.2rem;
-  font-weight: bold;
-}
-
-.movie-view span:not(:first-child) {
-  font-size: 1.1rem;
-}
-
-.back-button {
-  color: #f5f5f5;
-  background-color: #1e90ff;
-  border: none;
-  border-radius: 4px;
-  padding: 6px 15px;
-  font-size: 1rem;
-  font-weight: bold;
-  text-decoration: none;
-}
-
 .heart-btn {
-  color: #ff4b5c;
+  color: #ff47a3;
   cursor: pointer;
-  background-color: #0000;
+  background: #00000080;
   border: none;
-  padding: .5rem;
-  font-size: 2rem;
-  transition: color .3s, transform .2s ease-in-out;
+  border-radius: 50%;
+  padding: .4rem;
+  font-size: 1.8rem;
+  transition: transform .2s, color .2s, background .2s;
+  position: absolute;
+  top: 10px;
+  right: 10px;
 }
 
 .heart-btn:hover {
-  color: #ff6f70;
-  transform: scale(1.2);
+  color: #ff6f91;
+  background: #000000b3;
+  transform: scale(1.1);
 }
 
-.heart-btn:focus {
-  outline: none;
+.info-side {
+  color: #e5e7eb;
+  flex-direction: column;
+  flex: 2;
+  justify-content: center;
+  display: flex;
+}
+
+.info-side .title {
+  margin-bottom: .5rem;
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.info-side .description {
+  margin: 1rem 0;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.info-side .director {
+  opacity: .85;
+  font-size: .9rem;
+}
+
+.back-button {
+  color: #fff;
+  background: linear-gradient(135deg, #ff47a3, #8b5cf6);
+  border-radius: 999px;
+  align-self: flex-start;
+  margin-top: 1rem;
+  padding: .5rem 1rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: transform .15s, box-shadow .15s;
+}
+
+.back-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px #8b5cf680;
+}
+
+.heart-btn {
+  color: #ff47a3;
+  background: none;
+  border: none;
+  font-size: 2rem;
+  transition: transform .2s, color .2s;
+}
+
+.heart-btn:hover {
+  color: #ff6f91;
+  transform: scale(1.1);
 }
 
 .heart-btn.favorite {
-  color: red;
+  color: #ff1f4b;
+  text-shadow: 0 0 8px #ff1f4bb3;
 }
 
-.profile-view-container {
-  margin-left: 20px;
-  padding-left: 20px;
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.profile-hero {
+  background: radial-gradient(circle at 50% 10%, #000000b3, #000000eb 80%);
+  justify-content: center;
+  align-items: flex-start;
+  min-height: calc(100vh - 60px);
+  padding: 2rem 1rem;
+  display: flex;
+  position: relative;
+}
+
+.profile-shell {
+  z-index: 1;
+  width: 100%;
+  max-width: 1200px;
+}
+
+.profile-card, .favorites-card {
+  backdrop-filter: blur(8px);
+  background: #0f172ad9;
+  border: 1px solid #ffffff0d;
+  border-radius: 1rem;
+  animation: .4s fadeIn;
+  box-shadow: 0 12px 30px #0009;
+}
+
+.profile-card h2, .favorites-card h2 {
+  -webkit-text-fill-color: transparent;
+  letter-spacing: .5px;
+  background: linear-gradient(45deg, #ff47a3, #8b5cf6);
+  -webkit-background-clip: text;
+  font-weight: 700;
+}
+
+.profile-card button, .profile-card .btn {
+  border-radius: 999px;
+  font-weight: 600;
+}
+
+.favorites-card .text-muted {
+  opacity: .75;
+}
+
+@media (width <= 767px) {
+  .profile-card {
+    margin-bottom: 1.5rem;
+  }
 }
 
 .nav-fun {
@@ -13327,24 +13456,6 @@ body {
   font-family: Paytone One, system-ui, sans-serif;
 }
 
-.auth-hero {
-  place-items: center;
-  min-height: 100vh;
-  padding: 2rem;
-  display: grid;
-  position: relative;
-  overflow: hidden;
-}
-
-.auth-hero:before, .auth-hero:after {
-  content: "";
-  filter: blur(.5px);
-  z-index: -2;
-  background: radial-gradient(40rem 30rem at 10% -10%, #8b5cf62e, #0000), radial-gradient(35rem 25rem at 110% -10%, #3abff829, #0000), radial-gradient(30rem 30rem at 50% 120%, #ff47a31f, #0000);
-  position: absolute;
-  inset: -20%;
-}
-
 .blob {
   opacity: .25;
   filter: blur(20px);
@@ -13558,20 +13669,11 @@ html, body, #root {
   margin: 0;
 }
 
-.auth-hero {
-  width: 100%;
-  min-height: 100vh;
-}
-
-.auth-hero:after {
-  content: "";
-  mix-blend-mode: multiply;
-  pointer-events: none;
-  z-index: -1;
-  opacity: .4;
-  background: repeating-linear-gradient(#00000014 0 1px, #0000 2px 4px);
-  position: absolute;
-  inset: 0;
+.brand-mark {
+  border-radius: 4px;
+  display: inline-block;
+  transform: translateZ(0);
+  box-shadow: 0 0 8px #ff47a359;
 }
 
 @keyframes vhs-flicker {
@@ -13598,23 +13700,6 @@ html, body, #root {
   60% {
     opacity: .42;
   }
-}
-
-.auth-hero:after {
-  animation: 1.8s step-end infinite vhs-flicker;
-}
-
-.auth-hero:before {
-  content: "";
-  opacity: .15;
-  mix-blend-mode: overlay;
-  pointer-events: none;
-  z-index: -1;
-  background-image: url("data:image/svg+xml;utf8,  <svg xmlns='http://www.w3.org/2000/svg' width='200' height='200' fill='black'>    <filter id='noiseFilter'>      <feTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/>    </filter>    <rect width='100%' height='100%' filter='url(%23noiseFilter)' opacity='0.15'/>  </svg>");
-  background-size: cover;
-  animation: 1.5s steps(4, end) infinite noiseMove;
-  position: absolute;
-  inset: 0;
 }
 
 @keyframes noiseMove {
@@ -13723,5 +13808,44 @@ html, body, #root {
 
 .btn-link:hover:after {
   opacity: 1;
+}
+
+.auth-hero {
+  background-color: #0000;
+  background-image: radial-gradient(circle at 50% 30%, #0006 0%, #0000 70%), radial-gradient(circle at 50% 120%, #000000b3 0%, #0000 60%), url("https://images.unsplash.com/photo-1524985069026-dd778a71c7b4?fit=crop&w=1500&q=80");
+  background-position: center;
+  background-repeat: repeat, repeat, repeat;
+  background-size: cover;
+  background-attachment: scroll, scroll, scroll;
+  background-origin: padding-box, padding-box, padding-box;
+  background-clip: border-box, border-box, border-box;
+  place-items: center;
+  min-height: 100vh;
+  padding: 2rem;
+  display: grid;
+  position: relative;
+  overflow: hidden;
+}
+
+.auth-hero:before {
+  content: "";
+  mix-blend-mode: multiply;
+  z-index: -1;
+  background: radial-gradient(circle, #000000a6 0%, #000000e6 100%);
+  position: absolute;
+  inset: 0;
+}
+
+.auth-hero:after {
+  content: "";
+  opacity: .12;
+  mix-blend-mode: overlay;
+  pointer-events: none;
+  z-index: 0;
+  background-image: url("data:image/svg+xml;utf8,  <svg xmlns='http://www.w3.org/2000/svg' width='200' height='200' fill='black'>    <filter id='noiseFilter'>      <feTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/>    </filter>    <rect width='100%' height='100%' filter='url(%23noiseFilter)' opacity='0.15'/>  </svg>");
+  background-size: cover;
+  animation: 1.5s steps(4, end) infinite noiseMove;
+  position: absolute;
+  inset: 0;
 }
 /*# sourceMappingURL=index.2212206d.css.map */
