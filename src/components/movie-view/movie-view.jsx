@@ -4,89 +4,69 @@ import "./movie-view.scss";
 
 export const MovieView = ({ movies, user, token, onUserUpdated }) => {
   const { movieId } = useParams();
-
   const movie = movies.find((m) => m.id === movieId);
-  if (!movie) {
-    return <div>Movie not found!</div>;
-  }
 
-  // State to track whether the movie is a favorite
   const [isFavorite, setIsFavorite] = useState(
-    (user.FavoriteMovies || []).includes(movie.id)
+    (Array.isArray(user?.FavoriteMovies) ? user.FavoriteMovies : []).includes(movie?.id)
   );
 
+  if (!movie) return <div>Movie not found!</div>;
+
   const handleFavorite = () => {
-    if (!user) {
-      console.log("User is:", user);
-      alert("User not logged in");
-      return;
-    }
-  
-    const updatedFavorites = isFavorite
-     ? (user.FavoriteMovies || []).filter((id) => id !== movie.id)
-     : [...(user.FavoriteMovies || []), movie.id];
-  
-     fetch(`https://movie-api-bqfe.onrender.com/users/${user.username}`, {
-      method: "PUT",
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ FavoriteMovies: updatedFavorites }),
+  if (!user) return alert("User not logged in");
+
+  // ✅ Normalize favorites to an array
+  const currentFavs = Array.isArray(user?.FavoriteMovies) ? user.FavoriteMovies : [];
+
+  // ✅ Compute new list (avoid duplicates)
+  const updatedFavorites = isFavorite
+    ? currentFavs.filter((id) => id !== movie.id)
+    : [...new Set([...currentFavs, movie.id])];
+
+  fetch(`https://movie-api-bqfe.onrender.com/users/${user.username}`, {
+    method: "PUT",
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ FavoriteMovies: updatedFavorites }),
+  })
+    .then((r) => {
+      if (!r.ok) throw new Error("Failed to update favorites");
+      onUserUpdated({ ...user, FavoriteMovies: updatedFavorites });
+      setIsFavorite((prev) => !prev); // ✅ safe toggle
     })
-    
-      .then((response) => {
-        if (response.ok) {
-          onUserUpdated({ ...user, FavoriteMovies: updatedFavorites });
-          setIsFavorite(!isFavorite);
-        } else {
-          throw new Error("Failed to update favorites");
-        }
-      })
-      .catch((error) => alert(error.message));
-  };
-  
+    .catch((e) => alert(e.message));
+};
 
   return (
-    <div className="movie-view">
-      <div>
-        <img src={movie.imageURL} alt={movie.title} className="movie-image" />
-      </div>
+    <div className="movie-detail-hero">
+      <div className="movie-detail-card">
+        {/* Poster section */}
+        <div className="poster-side">
+          <div className="poster-wrapper">
+            <img src={movie.imageURL} alt={movie.title} />
+            <button
+              onClick={handleFavorite}
+              className={`btn heart-btn ${isFavorite ? "favorite" : ""}`}
+            >
+              <i className="fas fa-heart"></i>
+            </button>
+          </div>
+        </div>
 
-      {/* Favorite button */}
-      <div>
-        <button
-          onClick={handleFavorite}
-          className={`btn heart-btn ${isFavorite ? "favorite" : ""}`}
-        >
-          <i className="fas fa-heart"></i>
-        </button>
-      </div>
+        {/* Info section */}
+        <div className="info-side">
+          <h2 className="title">{movie.title}</h2>
+          <span className="genre-chip">{movie.genre.name}</span>
+          <p className="description">{movie.description}</p>
+          <p className="director"><strong>Director:</strong> {movie.director.name}</p>
 
-      <div>
-        <span>Title: </span>
-        <span>{movie.title}</span>
+          <Link to="/movies" className="back-button">
+            ⬅ Back to Movies
+          </Link>
+        </div>
       </div>
-      <div>
-        <span>Genre: </span>
-        <span>{movie.genre.name}</span>
-      </div>
-      <div>
-        <span>Description: </span>
-        <span>{movie.description}</span>
-      </div>
-      <div>
-        <span>Director: </span>
-        <span>{movie.director.name}</span>
-      </div>
-
-      {/* Back button */}
-      <Link to="/movies" className="back-button">
-        Back
-      </Link>
     </div>
   );
 };
-
-
-
