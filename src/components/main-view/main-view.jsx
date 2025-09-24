@@ -45,7 +45,7 @@ export const MainView = () => {
 
   return (
     <BrowserRouter>
-      {/* ✅ Navbar always visible */}
+      {/*Navbar always visible */}
       <NavigationBar
         user={user}
         onLoggedOut={() => { setUser(null); setToken(null); }}

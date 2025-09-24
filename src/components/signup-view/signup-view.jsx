@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Form, Button, Card } from "react-bootstrap";
 import { popConfetti } from "../../utils/confetti";
+import bgVideoUrl from "url:../../assets/popcorn_vid.mp4";
 
 export const SignupView = () => {
   const [username, setUsername] = useState("");
@@ -29,14 +30,20 @@ export const SignupView = () => {
 
   return (
   <div className="auth-hero">
-    <span className="blob b1"></span>
-    <span className="blob b2"></span>
-    <span className="blob b3"></span>
+  <video autoPlay muted loop playsInline className="auth-bg-video">
+    <source src={bgVideoUrl} type="video/mp4" />
+  </video>
 
-    <div className="w-100" style={{ maxWidth: 480 }}>
-      <div className="card sticker form-container">
-        <div className="card-body">
-          <h1 className="auth-title h3 mb-4 text-center">Sign Up</h1>
+  {/* Decorative blobs (optional) */}
+  <span className="blob b1"></span>
+  <span className="blob b2"></span>
+  <span className="blob b3"></span>
+
+  {/* Centered login card */}
+  <div className="w-100" style={{ maxWidth: 420 }}>
+    <div className="card sticker form-container">
+      <div className="card-body">
+        <h1 className="auth-title h3 mb-4 text-center">Sign Up</h1>
 
           <Form onSubmit={handleSubmit}>
             <Form.Group controlId="formUsername" className="mb-3">

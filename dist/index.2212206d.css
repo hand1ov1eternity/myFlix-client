@@ -13811,14 +13811,6 @@ html, body, #root {
 }
 
 .auth-hero {
-  background-color: #0000;
-  background-image: radial-gradient(circle at 50% 30%, #0006 0%, #0000 70%), radial-gradient(circle at 50% 120%, #000000b3 0%, #0000 60%), url("https://images.unsplash.com/photo-1524985069026-dd778a71c7b4?fit=crop&w=1500&q=80");
-  background-position: center;
-  background-repeat: repeat, repeat, repeat;
-  background-size: cover;
-  background-attachment: scroll, scroll, scroll;
-  background-origin: padding-box, padding-box, padding-box;
-  background-clip: border-box, border-box, border-box;
   place-items: center;
   min-height: 100vh;
   padding: 2rem;
@@ -13827,25 +13819,14 @@ html, body, #root {
   overflow: hidden;
 }
 
-.auth-hero:before {
-  content: "";
-  mix-blend-mode: multiply;
-  z-index: -1;
-  background: radial-gradient(circle, #000000a6 0%, #000000e6 100%);
-  position: absolute;
-  inset: 0;
-}
-
-.auth-hero:after {
-  content: "";
-  opacity: .12;
-  mix-blend-mode: overlay;
-  pointer-events: none;
-  z-index: 0;
-  background-image: url("data:image/svg+xml;utf8,  <svg xmlns='http://www.w3.org/2000/svg' width='200' height='200' fill='black'>    <filter id='noiseFilter'>      <feTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/>    </filter>    <rect width='100%' height='100%' filter='url(%23noiseFilter)' opacity='0.15'/>  </svg>");
-  background-size: cover;
-  animation: 1.5s steps(4, end) infinite noiseMove;
-  position: absolute;
-  inset: 0;
+.auth-bg-video {
+  object-fit: cover;
+  z-index: -2;
+  filter: brightness(.55) contrast(1.05) saturate(1.05);
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
 }
 /*# sourceMappingURL=index.2212206d.css.map */
