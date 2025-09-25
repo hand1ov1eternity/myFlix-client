@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Nav, Navbar, Form, FormControl, Button, Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import "./navigation-bar.scss";
-import jasonFavicon from "../../public/fridaythe13th_favicon.png";
+import jasonFavicon from "../../assets/fridaythe13th_favicon.png";
 
 export const NavigationBar = ({ user, onLoggedOut, setSelectedGenre, onSearch }) => {
   const [selectedOption, setSelectedOption] = useState("");

@@ -109,7 +109,7 @@ $fun-yellow: #fbbf24;
 /* Sticker-style card */
 .card.sticker {
   border-radius: 24px;
-  border: 1px solid rgba(2,6,23,.08);
+  border: 1px solid rgba(255,255,255,0.55);
   box-shadow:
     0 20px 40px rgba(2,6,23,.10),
     0 1px 0 rgba(255,255,255,.6) inset;
@@ -118,7 +118,7 @@ $fun-yellow: #fbbf24;
 
 /* Glowing screen look for auth forms */
 .card.sticker {
-  background: rgba(255, 255, 255, 0.92);
+  background: rgba(255, 255, 255, 0);
   backdrop-filter: blur(4px);
   box-shadow:
     0 0 20px rgba(139, 92, 246, 0.2),
@@ -194,6 +194,18 @@ $fun-yellow: #fbbf24;
 }
 .card.sticker::before { left: 18px; }
 .card.sticker::after  { right: 18px; transform: rotate(3deg); }
+
+/* Title contrast + shadow */
+.card.sticker .auth-title {
+  color: #fff;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6); /* keeps title readable */
+}
+
+/* Neon-glow style for labels (VHS vibe) */
+.card.sticker .form-label {
+  color: #fff;
+  text-shadow: 0 0 6px rgba(139, 92, 246, 0.6); /* purple glow */
+}
 
 /* Neon-ish primary button */
 .btn-primary {
@@ -399,13 +411,8 @@ html, body, #root { height: 100%; margin: 0; }
 }
 
 
-/* === Cinematic gritty auth background === */
+/* === Auth hero with fullscreen video background (no flicker/noise) === */
 .auth-hero {
-  background: radial-gradient(circle at 50% 30%, rgba(0, 0, 0, 0.4) 0%, transparent 70%),
-              radial-gradient(circle at 50% 120%, rgba(0, 0, 0, 0.7) 0%, transparent 60%),
-              url("https://images.unsplash.com/photo-1524985069026-dd778a71c7b4?fit=crop&w=1500&q=80");
-  background-size: cover;
-  background-position: center;
   position: relative;
   min-height: 100vh;
   display: grid;
@@ -414,32 +421,26 @@ html, body, #root { height: 100%; margin: 0; }
   overflow: hidden;
 }
 
-/* Subtle vignette overlay */
-.auth-hero::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle, rgba(0, 0, 0, 0.65) 0%, rgba(0, 0, 0, 0.9) 100%);
-  mix-blend-mode: multiply;
-  z-index: -1;
+/* Video fills the viewport behind the form */
+.auth-bg-video {
+  position: fixed;  
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -2;           /* sit behind navbar + content */
+  filter: brightness(0.55) contrast(1.05) saturate(1.05);
 }
 
-/* Keep film grain/noise on top of vignette */
-.auth-hero::after {
+/* Static vignette (no animation) so the card pops */
+/*.auth-hero::after {
   content: "";
   position: absolute;
   inset: 0;
-  background-image: url("data:image/svg+xml;utf8,\
-  <svg xmlns='http://www.w3.org/2000/svg' width='200' height='200' fill='black'>\
-    <filter id='noiseFilter'>\
-      <feTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/>\
-    </filter>\
-    <rect width='100%' height='100%' filter='url(%23noiseFilter)' opacity='0.15'/>\
-  </svg>");
-  background-size: cover;
-  opacity: 0.12;
-  mix-blend-mode: overlay;
   pointer-events: none;
-  animation: noiseMove 1.5s steps(4) infinite;
-  z-index: 0;
-}
+  z-index: -1;
+  background:
+    radial-gradient(120% 80% at 50% 10%, rgba(0,0,0,.25) 0%, transparent 60%),
+    radial-gradient(120% 100% at 50% 120%, rgba(0,0,0,.65) 0%, rgba(0,0,0,.85) 60%);
+}*/
