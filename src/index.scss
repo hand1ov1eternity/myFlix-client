@@ -109,7 +109,7 @@ $fun-yellow: #fbbf24;
 /* Sticker-style card */
 .card.sticker {
   border-radius: 24px;
-  border: 1px solid rgba(2,6,23,.08);
+  border: 1px solid rgba(255,255,255,0.55);
   box-shadow:
     0 20px 40px rgba(2,6,23,.10),
     0 1px 0 rgba(255,255,255,.6) inset;
@@ -118,7 +118,7 @@ $fun-yellow: #fbbf24;
 
 /* Glowing screen look for auth forms */
 .card.sticker {
-  background: rgba(255, 255, 255, 0.92);
+  background: rgba(255, 255, 255, 0);
   backdrop-filter: blur(4px);
   box-shadow:
     0 0 20px rgba(139, 92, 246, 0.2),
@@ -194,6 +194,18 @@ $fun-yellow: #fbbf24;
 }
 .card.sticker::before { left: 18px; }
 .card.sticker::after  { right: 18px; transform: rotate(3deg); }
+
+/* Title contrast + shadow */
+.card.sticker .auth-title {
+  color: #fff;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6); /* keeps title readable */
+}
+
+/* Neon-glow style for labels (VHS vibe) */
+.card.sticker .form-label {
+  color: #fff;
+  text-shadow: 0 0 6px rgba(139, 92, 246, 0.6); /* purple glow */
+}
 
 /* Neon-ish primary button */
 .btn-primary {
@@ -411,7 +423,7 @@ html, body, #root { height: 100%; margin: 0; }
 
 /* Video fills the viewport behind the form */
 .auth-bg-video {
-  position: fixed;       /* <-- key change */
+  position: fixed;  
   top: 0;
   left: 0;
   width: 100%;

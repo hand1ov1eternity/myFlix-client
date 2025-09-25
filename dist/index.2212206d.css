@@ -13502,8 +13502,8 @@ body {
 
 .card.sticker {
   backdrop-filter: blur(4px);
-  background: #ffffffeb;
-  border: 1px solid #02061714;
+  background: #fff0;
+  border: 1px solid #ffffff8c;
   border-radius: 24px;
   transition: box-shadow .3s, transform .3s;
   position: relative;
@@ -13578,6 +13578,16 @@ body {
 .card.sticker:after {
   right: 18px;
   transform: rotate(3deg);
+}
+
+.card.sticker .auth-title {
+  color: #fff;
+  text-shadow: 0 1px 3px #0009;
+}
+
+.card.sticker .form-label {
+  color: #fff;
+  text-shadow: 0 0 6px #8b5cf699;
 }
 
 .btn-primary {
