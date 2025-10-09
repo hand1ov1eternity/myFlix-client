@@ -2,11 +2,10 @@ import { useState } from "react";
 import { Nav, Navbar, Form, FormControl, Button, Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import "./navigation-bar.scss";
-import jasonFavicon from "../../assets/fridaythe13th_favicon.png";
+import jasonFavicon from "url:../../assets/fridaythe13th_favicon.png";
 
-export const NavigationBar = ({ user, onLoggedOut, setSelectedGenre, onSearch }) => {
+export const NavigationBar = ({ user, onLoggedOut, setSelectedGenre, onSearch, searchValue = "" }) => {
   const [selectedOption, setSelectedOption] = useState("");
-  const [searchQuery, setSearchQuery] = useState("");
 
   const handleGenreChange = (event) => {
     const val = event.target.value;
@@ -16,8 +15,13 @@ export const NavigationBar = ({ user, onLoggedOut, setSelectedGenre, onSearch })
 
   const handleSearchSubmit = (event) => {
     event.preventDefault();
-    onSearch?.(searchQuery);
+    onSearch?.(searchValue.trim());
   };
+
+  const handleSearchChange = (e) => {
+    const val = e.target.value; 
+    onSearch?.(val);
+};
 
   return (
     <Navbar expand="lg" className="nav-fun px-3 py-2" variant="dark">
@@ -26,11 +30,12 @@ export const NavigationBar = ({ user, onLoggedOut, setSelectedGenre, onSearch })
         <Navbar.Brand as={Link} to={user ? "/movies" : "/login"} className="brand-fun d-flex align-items-center gap-2">
         {/* favicon as brand mark */}
         <img
-          src={jasonFavicon}
+          src={jasonFavicon} 
           alt="myFlix"
           className="brand-mark"
           width="22"
           height="22"
+          style={{ objectFit: "contain" }}
         />
 
       <span>myFlix</span>
@@ -71,10 +76,10 @@ export const NavigationBar = ({ user, onLoggedOut, setSelectedGenre, onSearch })
                 <Form onSubmit={handleSearchSubmit} className="d-flex">
                   <FormControl
                     type="search"
-                    placeholder="Search movies"
+                    placeholder="Search movies (e.g. crime)"
                     className="me-2 fun-pill"
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
+                   value={searchValue}          // controlled by parent
+                   onChange={handleSearchChange}
                     aria-label="Search movies"
                   />
                   <Button type="submit" variant="light" className="fun-pill px-3">
