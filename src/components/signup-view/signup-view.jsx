@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Form, Button, Card } from "react-bootstrap";
 import { popConfetti } from "../../utils/confetti";
 import bgVideoUrl from "url:../../assets/popcorn_vid.mp4";
+import { API_BASE } from "../../api/config";
 
 export const SignupView = () => {
   const [username, setUsername] = useState("");
@@ -11,14 +12,15 @@ export const SignupView = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-
+    
     const data = { username, password, email, birthday };
 
-    fetch("https://movie-api-bqfe.onrender.com/users", {
+    fetch(`${API_BASE}/users`, {
       method: "POST",
       body: JSON.stringify(data),
       headers: { "Content-Type": "application/json" },
-    }).then((response) => {
+    })
+    .then((response) => {
       if (response.ok) {
         popConfetti();
         alert("Signup successful");

@@ -1,6 +1,7 @@
 import { useParams, Link } from "react-router-dom";
 import { useState } from "react";
 import "./movie-view.scss";
+import { API_BASE } from "../../api/config";
 
 export const MovieView = ({ movies, user, token, onUserUpdated }) => {
   const { movieId } = useParams();
@@ -15,15 +16,15 @@ export const MovieView = ({ movies, user, token, onUserUpdated }) => {
   const handleFavorite = () => {
   if (!user) return alert("User not logged in");
 
-  // ✅ Normalize favorites to an array
+  // Normalize favorites to an array
   const currentFavs = Array.isArray(user?.FavoriteMovies) ? user.FavoriteMovies : [];
 
-  // ✅ Compute new list (avoid duplicates)
+  // Compute new list (avoid duplicates)
   const updatedFavorites = isFavorite
     ? currentFavs.filter((id) => id !== movie.id)
     : [...new Set([...currentFavs, movie.id])];
 
-  fetch(`https://movie-api-bqfe.onrender.com/users/${user.username}`, {
+  fetch(`${API_BASE}/users/${user.username}`, {
     method: "PUT",
     headers: {
       Authorization: `Bearer ${token}`,

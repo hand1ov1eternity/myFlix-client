@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
-import { Row, Col, Form, Button, Card } from "react-bootstrap"; // ✅ add Card
+import { Row, Col, Form, Button, Card } from "react-bootstrap"; // add Card
 import { MovieCard } from "../movie-card/movie-card";
 import "./profile-view.scss";
+import { API_BASE } from "../../api/config";
 
 export const ProfileView = ({ user, token, movies, onUserUpdated, onUserDeleted }) => {
   const [username, setUsername] = useState(user?.username || "");
@@ -20,7 +21,7 @@ export const ProfileView = ({ user, token, movies, onUserUpdated, onUserDeleted 
     e.preventDefault();
     const data = { username, password, email, birthday };
 
-    fetch(`https://movie-api-bqfe.onrender.com/users/${user?.username}`, {
+    fetch(`${API_BASE}/users/${user?.username}`, {
       method: "PUT",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -43,10 +44,10 @@ export const ProfileView = ({ user, token, movies, onUserUpdated, onUserDeleted 
     const confirmDeregister = window.confirm("Are you sure you want to delete your account?");
     if (!confirmDeregister) return;
 
-    fetch(`https://movie-api-bqfe.onrender.com/users/${user?.username}`, {
-      method: "DELETE",
-      headers: { Authorization: `Bearer ${token}` },
-    })
+    fetch(`${API_BASE}/users/${user?.username}`, {
+    method: "DELETE",
+    headers: { Authorization: `Bearer ${token}` },
+  })
       .then((response) => {
         if (response.ok) {
           alert("Account deleted successfully");

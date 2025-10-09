@@ -1,4 +1,3 @@
-import React from "react";
 import PropTypes from "prop-types";
 import { Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
@@ -6,7 +5,7 @@ import { Link } from "react-router-dom";
 export const MovieCard = ({ movie }) => {
   return (
     <Card className="h-100 movie-card">
-      {/* ✅ wrap the image */}
+      {/* wrap the image */}
       <div className="poster-wrap">
         <Card.Img variant="top" src={movie.imageURL} alt={movie.title} />
       </div>
