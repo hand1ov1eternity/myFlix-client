@@ -8,18 +8,27 @@
 
 - 🔐 **User Authentication**
   - Sign up and log in securely using a username, password, and email.
+  - Session persistence with user and token storage in localStorage.
 
 - 🎞️ **Movie Discovery**
   - Browse movies with rich details including title, genre, description, and director.
+  - AI-driven semantic search for more accurate, context-aware results.
+  - Debounced, real-time search with clear filters and smooth UX feedback.
 
 - ⭐ **Favorite Movies**
   - Add or remove movies from your favorites list.
+  - Enhanced hover animations and VHS glitch effects for visual feedback
 
 - 👤 **Profile Management**
   - Update your username, password, email, and birthday.
+  - Consistent design across Login, Signup, and Profile screens.
 
-- 📱 **Responsive Layout**
-  - Built with Bootstrap for seamless experience across devices.
+- 🎨 **Retro VHS-Themed Interface**
+  - Animated glassmorphism cards, neon-glow buttons, and popcorn video background.
+  - Unified color scheme and glowing navbar for a nostalgic cinematic vibe.
+
+- 🧭 **Seamless Navigation**
+  - Improved routing logic — users automatically directed to the correct page based on authentication state.
 
 ---
 
@@ -32,6 +41,8 @@ Styling: SCSS, Bootstrap
 Backend: Node.js, Express.js
 
 API: Fetch API
+
+A.I. Search: @xenova/transformers for semantic embeddings
 
 Authentication: JSON Web Token (JWT)
 
@@ -73,15 +84,6 @@ Open your browser at:
 http://localhost:1234
 ```
 
-### 🚧 Features in Development
-
-🔄 User profile and movie data are fetched from a backend API (movie-api-bqfe.onrender.com
-).
-
-✏️ Users can view, edit, and delete their profiles.
-
-🎯 Movies can be filtered by genre and other criteria.
-
 ### 📖 API Documentation
 
 The app communicates with a REST API hosted at:
@@ -99,6 +101,10 @@ Managing favorites
 
 Updating profiles
 
+Semantic search for movies
+
+Check embedding data status
+
 ### 🤝 Contributing
 
 **Contributions are welcome!**
@@ -113,5 +119,5 @@ Make and test your changes
 
 Submit a pull request
 
-> Built with React, Bootstrap, and a love for movies 🎬🍿 — always a work in progress 🚧
+> Built with React, Bootstrap, and a love for movies 🎬🍿- now with a touch of 80s nostalgia and AI smarts. — always a work in progress 🚧
 
