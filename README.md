@@ -2,6 +2,12 @@
 
 🔗 **[Live Version »](https://myflixappclient.netlify.app/Login)**
 
+Hosting Note
+
+The backend API is hosted on Render’s free tier. Free Render web services spin down after a period of inactivity, so the first request after the app has been idle may take up to a minute while the backend starts again. If the movie data or login request does not load immediately, please wait briefly and refresh the page.
+
+This is a hosting limitation of the free deployment tier, not an application error.
+
 ---
 
 ## 🎯 Features
